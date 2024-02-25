@@ -103,5 +103,6 @@ XDG_CONFIG_HOME="$HOME/.config"
 export PATH="$PATH:/var/lib/flatpak/exports/bin"
 
 alias copy='xsel -ib'
-
 alias lg='lazygit'
+alias vim='nvim'
+
