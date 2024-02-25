@@ -4,26 +4,27 @@ case $- in
       *) return;;
 esac
 
+# Environment variables
+export EDITOR='nvim'
+
+# Bash stuff
 HISTCONTROL=ignoreboth
-
 shopt -s histappend
-
 HISTSIZE=1000
 HISTFILESIZE=2000
-
 shopt -s checkwinsize
 
-
-
+# Debian stuff
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# Terminal stuff
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-
+# Colour output
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
@@ -61,9 +62,7 @@ if [ -x /usr/bin/dircolors ]; then
     #alias egrep='egrep --color=auto'
 fi
 
-
-
-
+# Some more bash stuff
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -81,6 +80,7 @@ alias apt='sudo nala'
 
 . "$HOME/.cargo/env"
 
+# Make the shell cd to ranger's browsed directory
 function r {
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t tmp.XXXXXX)"
@@ -89,7 +89,7 @@ function r {
         ranger
         --cmd="map q chain shell echo %d > "$tempfile"; quitall"
     )
-    
+
     ${ranger_cmd[@]} "$@"
     if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
         cd -- "$(cat "$tempfile")" || return
