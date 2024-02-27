@@ -6,6 +6,10 @@ local opts = { remap = true, silent = true }
 -- km.set("n", "<leader>m", ":NvimTreeFocus<CR>", opts)
 keymap.set("n", "<leader>m", ":NvimTreeToggle<CR>", opts)
 
+-- Save document
+keymap.set("n", "<C-s>", ":update<CR>", opts)
+keymap.set("i", "<C-s>", "<ESC>:update<CR>a", opts)
+
 -- Navigating panes and windows
 keymap.set("n", "<C-left>", "<C-w>h", opts) -- Navigate left
 keymap.set("n", "<C-down>", "<C-w>j", opts) -- Navigate down
