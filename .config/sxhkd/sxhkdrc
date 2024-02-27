@@ -1,2 +1,9 @@
 super + Return
 	/home/khai/.cargo/bin/alacritty
+
+super + b
+	firefox
+
+super + d
+	rofi -show drun -show-icons -lines 8 -columns 3 -eh 2 -width 74 \
+		-padding 200 -opacity "40"
