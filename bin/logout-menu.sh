@@ -1,0 +1,1 @@
+/home/khai/Documents/Projects/logout-menu/logout-menu.sh

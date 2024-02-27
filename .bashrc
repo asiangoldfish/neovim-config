@@ -97,7 +97,7 @@ function r {
     command rm -f -- "$tempfile" 2>/dev/null
 }
 
-
+export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/bin/Zotero_linux-x86_64"
 XDG_CONFIG_HOME="$HOME/.config"
 export PATH="$PATH:/var/lib/flatpak/exports/bin"
