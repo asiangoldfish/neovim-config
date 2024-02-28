@@ -20,7 +20,7 @@
 (defwidget time []
   (box :orientation "h" 
        :class "time"
-    hour min sec))
+    hour ":" min ":" sec "     "))
 
 
 (defwidget metric [icon ?font-size]
@@ -37,18 +37,17 @@
        :space-evenly true
        :spacing "5"
 
-    (metric :icon "" :font-size 1 (music-button))
+    ;(metric :icon "" :font-size 1 (music-button))
 
     (volume)
 
-    (metric :icon "" 
+    ;(metric :icon ""
+    (metric :icon "DISK"
             :font-size 0.8
       "${round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}%")
-
-    (metric :icon "" "${round(EWW_RAM.used_mem_perc, 0)}%")
-
-    (metric :icon "" "${round(EWW_CPU.avg, 0)}%")
-
+    (metric :icon "MEMORY" "${round(EWW_RAM.used_mem_perc, 0)}%")
+    ;(metric :icon "" "${round(EWW_CPU.avg, 0)}%")
+    (metric :icon "CPU" "${round(EWW_CPU.avg, 0)}%")
     (box :class "metric" (date))))
 
 (defwidget music-button []
@@ -61,7 +60,7 @@
        :space-evenly false
        :valign "fill"
        :vexpand false
-    (scale :orientation "h" 
+    (scale :orientation "h"
            :min 0
            :max 100 
            :onchange "pamixer --set-volume $(echo {} | sed 's/\\..*//g')"
@@ -90,7 +89,7 @@
     day_word day month year))
 
 ; TODO make this not hacky
-(defvar audio_sink "")
+(defvar audio_sink "AUDIO")
 
 (deflisten volume :initial "0" "./audio.sh volume")
 
@@ -117,7 +116,7 @@
 (defwindow bar_1
   :monitor "0"
   ;:stacking "bg"
-  :geometry (geometry :x "0%" :y "10px" :width "90%" :height "30px")
+  :geometry (geometry :x "0%" :y "0px" :width "90%" :height "30px")
   :anchor "top center"
   :reserve (struts :distance "40px" :side "top")
     :windowtype "dock"
