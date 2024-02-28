@@ -22,7 +22,6 @@
        :class "time"
     hour ":" min ":" sec "     "))
 
-
 (defwidget metric [icon ?font-size]
   (box :class "metric" 
        :orientation "h"
@@ -30,6 +29,12 @@
            :style {font-size != "" ? "font-size: ${font-size}rem;" : ""} 
            :text icon)
     (children)))
+
+
+(defwidget battery []
+  (box :class "battery" 
+       :orientation "h"
+    {EWW_BATTERY["BAT0"]["capacity"]}))
 
 (defwidget bottom [screen] 
   (box :orientation "h"
@@ -48,6 +53,7 @@
     (metric :icon "MEMORY" "${round(EWW_RAM.used_mem_perc, 0)}%")
     ;(metric :icon "" "${round(EWW_CPU.avg, 0)}%")
     (metric :icon "CPU" "${round(EWW_CPU.avg, 0)}%")
+    (battery)
     (box :class "metric" (date))))
 
 (defwidget music-button []
@@ -63,7 +69,8 @@
     (scale :orientation "h"
            :min 0
            :max 100 
-           :onchange "pamixer --set-volume $(echo {} | sed 's/\\..*//g')"
+           ;:onchange "pamixer --set-volume $(echo {} | sed 's/\\..*//g')"
+           :onchange "pactl list sinks | grep '^[[:space:]]Volume:' |     head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'"
            :value volume)
     (eventbox :onscroll "if [ '{}' == 'up' ]; then pamixer -i 5; else pamixer -d 5; fi"
               :vexpand true
