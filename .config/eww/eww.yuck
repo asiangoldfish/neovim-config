@@ -34,7 +34,7 @@
 (defwidget battery []
   (box :class "battery" 
        :orientation "h"
-    {EWW_BATTERY["BAT0"]["capacity"]}))
+    "BATTERY" {EWW_BATTERY["BAT0"]["capacity"]}))
 
 (defwidget bottom [screen] 
   (box :orientation "h"
