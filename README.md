@@ -31,10 +31,24 @@ cd neovim-config
 stow .
 ```
 
-## Installation
-Debian:
+## Post-installation on Clean Installs
+**Debian:**<br>
+Debian will by default not add your account to the sudoers file. This can be
+performed as follows:
 ```sh
-sudo apt update && sudo apt full-upgrade -y
-sudo apt install -y curl
+su \ # Enter the root password
+sudo usermod -aG sudo YOUR_USERNAME
+```
+Now you must log out. Some login managers will not reset your permissions, so
+you need to logout by hard rebooting or using the following command:
+```sh
+pkill -u $(whoami)
+```
+
+Update the system before executing the post installation script.
+
+```sh
+sudo apt update && sudo apt full-upgrade -y \
+sudo apt install -y curl \
 curl https://raw.githubusercontent.com/asiangoldfish/neovim-config/main/install_scripts/debian.sh | bash
 ```
