@@ -8,12 +8,13 @@ sudo nala install vim git curl stow fish yad sxhkd -y
 sudo nala install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 
-sudo nala install cargo
+sudo nala install -y cargo
 
 # Get updated rust version
 ~/.cargo/bin/rustup override set stable
-~/.cargo/bin/rustup update stable
-cargo install alacritty
+~/.cargo/bin/rustup update stable¨
+alias rustc='~/.cargo/bin/rustc'
+~/.cargo/bin/cargo install alacritty
 
 # i3
 sudo nala install -y i3 --no-install-recommends
