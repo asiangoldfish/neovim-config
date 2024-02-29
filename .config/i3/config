@@ -19,7 +19,7 @@ tiling_drag modifier titlebar
 # Rofi app launcher
 # Remove title bar
 default_border pixel 2
-gaps inner 10
+gaps inner 5
 #gaps outer -10
 default_floating_border pixel 0
 

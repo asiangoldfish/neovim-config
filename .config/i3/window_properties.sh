@@ -1,7 +1,7 @@
 # Window modes for applications
 for_window[class="Zotero"] floating enable
 for_window[class="Thunar"] floating enable
-for_window[class="peazip"] floating enable
+for_window[class="PeaZip"] floating enable
 for_window[class="Yad"] floating enable
 for_window[class="Blueman-manager"] floating enable
 

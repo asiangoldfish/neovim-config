@@ -16,4 +16,5 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Bar
-exec --no-startup-id "~/bin/eww daemon && ~/bin/eww open bar_1"
+#exec --no-startup-id "~/bin/eww daemon && ~/bin/eww open bar_1"
+exec --no-startup-id "/usr/bin/polybar"
