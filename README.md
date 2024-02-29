@@ -12,7 +12,7 @@ platforms, they must be manually downloaded and moved to the designated
 locations. There may be dotfiles management systems that I am not aware
 of that support this project's directory structure.
 
-## Installation
+## Deploy Configuration
 Install [GNU Stow](https://www.gnu.org/software/stow/) and Git
 ```
 apt install stow git
@@ -31,4 +31,10 @@ cd neovim-config
 stow .
 ```
 
-
+## Installation
+Debian:
+```sh
+sudo apt update && sudo apt full-upgrade -y
+sudo apt install -y curl
+curl https://raw.githubusercontent.com/asiangoldfish/neovim-config/main/install_scripts/debian.sh | bash
+```
