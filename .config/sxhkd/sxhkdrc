@@ -1,9 +1,22 @@
+# Terminal
 super + Return
 	/home/khai/.cargo/bin/alacritty
 
+# Web browser
 super + b
 	firefox
 
+# App launcher
 super + d
 	rofi -show drun -show-icons -lines 8 -columns 3 -eh 2 -width 74 \
 		-padding 200 -opacity "40"
+
+# Screen brightness
+# Increase brightness
+super + period
+    brightnessctl set +10%
+
+# Decrease brightness
+super + comma
+    brightnessctl set 10%-
+
