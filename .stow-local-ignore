@@ -1,1 +1,7 @@
-\install_scripts
+
+.git
+.gitignore
+
+install_scripts
+^/README.*
+^/LICENSE.*
