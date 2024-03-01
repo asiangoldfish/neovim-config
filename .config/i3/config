@@ -16,10 +16,10 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
-# Rofi app launcher
-# Remove title bar
-default_border pixel 2
-gaps inner 5
+# border  backgr. text
+client.focused  #F9FAFa9 #eb6734 #292F34
+default_border pixel 3
+gaps inner 7
 #gaps outer -10
 default_floating_border pixel 0
 
