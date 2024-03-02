@@ -1,11 +1,20 @@
-
+# Interactive mode
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# Environment variables
-export EDITOR='nvim'
+# Import modules from $XDG_CONFIG_HOME
+# Credits: https://medium.com/codex/how-and-why-you-should-split-your-bashrc-or-zshrc-files-285e5cc3c843
+if [ -z "$XDG_CONFIG_HOME" ]; then
+    XDG_CONFIG_HOME="~/.config"
+fi
+
+if [ -d "$XDG_CONFIG_HOME/bashrc" ]; then
+    for FILE in "$XDG_CONFIG_HOME"/bashrc/*; do
+        source $FILE
+    done
+fi
 
 # Bash stuff
 HISTCONTROL=ignoreboth
@@ -26,13 +35,13 @@ esac
 
 # Colour output
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
+    # We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	    color_prompt=yes
     else
-	color_prompt=
+	    color_prompt=
     fi
 fi
 
@@ -62,11 +71,8 @@ if [ -x /usr/bin/dircolors ]; then
     #alias egrep='egrep --color=auto'
 fi
 
-# Some more bash stuff
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
+# Bash completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -74,42 +80,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-alias apt='sudo nala'
-
-
-. "$HOME/.cargo/env"
-
-# Make the shell cd to ranger's browsed directory
-function r {
-    local IFS=$'\t\n'
-    local tempfile="$(mktemp -t tmp.XXXXXX)"
-    local ranger_cmd=(
-        command
-        ranger
-        --cmd="map q chain shell echo %d > "$tempfile"; quitall"
-    )
-
-    ${ranger_cmd[@]} "$@"
-    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-        cd -- "$(cat "$tempfile")" || return
-    fi
-    command rm -f -- "$tempfile" 2>/dev/null
-}
-
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/bin/Zotero_linux-x86_64"
-XDG_CONFIG_HOME="$HOME/.config"
-export PATH="$PATH:/var/lib/flatpak/exports/bin"
-
-alias copy='xsel -ib'
-alias lg='lazygit'
-alias vim='nvim'
-
-if [ -d "$HOME/.pyenv" ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
-
-[ -f "/home/khai/.ghcup/env" ] && source "/home/khai/.ghcup/env" # ghcup-env
