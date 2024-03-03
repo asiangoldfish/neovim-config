@@ -19,10 +19,15 @@ exec --no-startup-id nm-applet
 exec --no-startup-id "/usr/bin/polybar --reload mainbar-i3"
 
 # Wallpaper
-exec --no-startup-id "feh --bg-fill ~/wallpaper/0258.jpg"
+exec --no-startup-id "/usr/bin/feh --bg-fill ~/wallpapers/0258.jpg"
 
 # Compositor
 exec --no-startup-id picom
 
-# Xmodmap
-exec_always --no-startup-id xmodmap -e "remove Lock = Caps_Lock" -e "keysym Caps_Lock = Control_L" -e "add Control = Control_L"
+#####################
+# Keyboard
+###
+# Reset modifier keys
+exec setxkbmap -option
+# Set keyboard layout
+exec --no-startup-id setxkbmap no
