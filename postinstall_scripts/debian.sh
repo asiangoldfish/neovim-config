@@ -11,7 +11,7 @@ function install_essentials() {
 
     echo "Installing essentials..."
     sudo nala -y install \
-        vim git curl stow fish yad sxhkd cmake emacs feh picom
+        vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep
 }
 
 function install_rust() {
