@@ -1,5 +1,4 @@
 
-
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
@@ -24,3 +23,6 @@ exec --no-startup-id "feh --bg-fill ~/wallpaper/0258.jpg"
 
 # Compositor
 exec --no-startup-id picom
+
+# Xmodmap
+exec_always --no-startup-id xmodmap -e "remove Lock = Caps_Lock" -e "keysym Caps_Lock = Control_L" -e "add Control = Control_L"
