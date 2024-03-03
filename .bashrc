@@ -7,7 +7,7 @@ esac
 # Import modules from $XDG_CONFIG_HOME
 # Credits: https://medium.com/codex/how-and-why-you-should-split-your-bashrc-or-zshrc-files-285e5cc3c843
 if [ -z "$XDG_CONFIG_HOME" ]; then
-    XDG_CONFIG_HOME="~/.config"
+    XDG_CONFIG_HOME="$HOME/.config"
 fi
 
 if [ -d "$XDG_CONFIG_HOME/bashrc" ]; then

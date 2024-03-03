@@ -12,18 +12,18 @@
 ################################################################################
 
 set -e # Exit immediately if a command fails.
-set -y # Unset variables and parameters fail when used.
+set -u # Unset variables and parameters fail when used.
 
 # This is where all the user's configurations are expected to be in
-DOT_DIR='~/dotfiles'
+DOT_DIR="$HOME/dotfiles"
 
 function fatal() {
     echo "$1"
     return 1
 }
 
-function help() {
-    echo "$(basename "$0") [OPTION]
+function usage() {
+    echo "Usage: $(basename "$0") [OPTION]
 
 Manage dotfiles by creating symlinks from a centralized directory. It is
 expected that the original files are in '~/dotfiles'.
@@ -47,7 +47,7 @@ Options:
 
 function deploy() {
     [ ! -d "$DOT_DIR" ] && fatal "$DOT_DIR does not exist. You should create a dotfiles directory first."
-    [ ! command -v stow > /dev/null ] && fatal "Cannot find the GNU Stow command 'stow'"
+    ! command -v stow > /dev/null && fatal "Cannot find the GNU Stow command 'stow'"
 
     cd "$DOT_DIR"
     stow .
@@ -55,7 +55,7 @@ function deploy() {
 
 function clean() {
     [ ! -d "$DOT_DIR" ] && fatal "$DOT_DIR does not exist. You should create a dotfiles directory first."
-    [ ! command -v stow > /dev/null ] && fatal "Cannot find the GNU Stow command 'stow'"
+    ! command -v stow > /dev/null && fatal "Cannot find the GNU Stow command 'stow'"
 
     cd "$DOT_DIR"
     stow -D .
@@ -63,9 +63,7 @@ function clean() {
 
 # Cleaning symlinks
 # https://systemcrafters.net/managing-your-dotfiles/using-gnu-stow/
-
-
-if [[ -n $1 ]]; then
+if [ "$#" == 0 ]; then
     usage
     exit 0
 fi
@@ -76,7 +74,7 @@ for i in "$@"; do
         usage
         exit 0
         ;;
-        
+
         -s|--stow)
         deploy
         exit 0
@@ -84,14 +82,18 @@ for i in "$@"; do
 
         -r|--restow)
         clean && deploy
+        exit 0
         ;;
 
-        -*|--*)
-        echo "Unknown option $i"
-        help
-        exit 1
+        -c|--clean)
+        clean
+        exit 0
         ;;
+
         *)
+        echo "Unknown option $i"
+        usage
+        exit 1
         ;;
     esac
 done

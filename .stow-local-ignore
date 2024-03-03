@@ -1,6 +1,6 @@
 .git
 .gitignore
 
-install_scripts
+postinstall_scripts
 ^/README.*
 ^/LICENSE.*
