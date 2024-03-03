@@ -21,3 +21,6 @@ exec --no-startup-id "/usr/bin/polybar --reload mainbar-i3"
 
 # Wallpaper
 exec --no-startup-id "feh --bg-fill ~/wallpaper/0258.jpg"
+
+# Compositor
+exec --no-startup-id picom

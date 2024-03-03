@@ -10,7 +10,8 @@ function install_essentials() {
     sudo apt install nala -y 
 
     echo "Installing essentials..."
-    sudo nala -y install vim git curl stow fish yad sxhkd cmake emacs feh
+    sudo nala -y install \
+        vim git curl stow fish yad sxhkd cmake emacs feh picom
 }
 
 function install_rust() {
