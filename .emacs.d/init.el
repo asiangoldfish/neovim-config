@@ -16,7 +16,7 @@
 
 ;; Font family and size
 ;; TODO pick a good font (face: "font name")
-(set-face-attribute 'default nil :font "Noto Mono 14" :height 120)
+(set-face-attribute 'default nil :height 120)
 ;; Default theme
 (load-theme 'wombat)
 
@@ -75,7 +75,7 @@
 ;; ------------------------------ ;;
 ;;         Latex Support          ;;
 ;; ------------------------------ ;;
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+; (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 ;; -------------------------------;;
 ;; Initialize package sources     ;;
@@ -278,7 +278,11 @@
 (defun goldfish/org-mode-setup()
   (org-indent-mode)
   (variable-pitch-mode 1)
-  (auto-fill-mode 0)
+
+  ; Hard wrap at 80 columns
+  (auto-fill-mode)
+  (setq fill-column 80)
+
   (visual-line-mode 1)
   (setq org-adapt-indentation t)
   (setq evil-auto-indent nil))
@@ -301,30 +305,35 @@
 ;(org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 ;; Org: Scale up headings
- (dolist (face '((org-level-1 . 1.4)
-        	 (org-level-2 . 1.35)
-        	 (org-level-3 . 1.25)
-        	 (org-level-4 . 1.2)
-        	 (org-level-5 . 1.1)
-        	 (org-level-6 . 1.1)
-        	 (org-level-7 . 1.1)
-        	 (org-level-8 . 1.1)))
-  (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+;; TODO: Fix "invalid face" errors
+;; (dolist (face '((org-level-1 . 1.4)
+;        	 (org-level-2 . 1.35)
+;        	 (org-level-3 . 1.25)
+;        	 (org-level-4 . 1.2)
+;        	 (org-level-5 . 1.1)
+;        	 (org-level-6 . 1.1)
+;        	 (org-level-7 . 1.1)
+;        	 (org-level-8 . 1.1)))
+;  (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
 
+; TODO: Fix "invalid face" errors
 ;; Org: Ensure that anything that should be fixed-pitch appears that way
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-indent nil :inherit '(ord-hide fixed-pitch))
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+;(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+;(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+;(set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
+;(set-face-attribute 'org-indent nil :inherit '(ord-hide fixed-pitch))
+;(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+;(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+;(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+;(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
 ;; Org: Latex support
 ;; https://github.com/io12/org-fragtog
 (use-package org-fragtog)
 (add-hook 'org-mode-hook 'org-fragtog-mode)
+
+; In exporting PDF, Latex force creates new page after table of content
+(setq org-latex-toc-command "\\tableofcontents \\clearpage")
 
 ;; Org: Centralize the text editor
 (defun goldfish/org-mode-visual-fill()
