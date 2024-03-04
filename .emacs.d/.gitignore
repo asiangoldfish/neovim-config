@@ -1,5 +1,13 @@
-init.el~
+# Packages
 auto-save-list/
 elpa/
-url/
 eln-cache/
+
+# Temporary files produced by Emacs
+*.el~
+\#.\#
+games/
+eshell/
+url/
+ltximg/
+projectile-*

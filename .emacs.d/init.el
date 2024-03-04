@@ -15,8 +15,8 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Font family and size
-(set-face-attribute 'default nil :height 120)
-
+;; TODO pick a good font (face: "font name")
+(set-face-attribute 'default nil :font "Noto Mono 14" :height 120)
 ;; Default theme
 (load-theme 'wombat)
 
@@ -71,6 +71,11 @@
 ;; ------------------------------ ;;
 ;; Set tab size
 (setq lisp-indent-offset 2)
+
+;; ------------------------------ ;;
+;;         Latex Support          ;;
+;; ------------------------------ ;;
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 ;; -------------------------------;;
 ;; Initialize package sources     ;;
@@ -269,6 +274,67 @@
 (use-package counsel-projectile ; Better integration with ivy
   :config (counsel-projectile-mode))
 
+;; Configure orgmode
+(defun goldfish/org-mode-setup()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq org-adapt-indentation t)
+  (setq evil-auto-indent nil))
+
+;; Org: Get the latest version
+(use-package org
+  :hook (org-mode . goldfish/org-mode-setup)
+  :config
+  (setq org-ellipsis " ⮟")  ; Appears when collapsing blocks
+  org-hide-emphasis-markers t
+  (goldfish/org-mode-setup)) ; Hide formatting characters
+
+
+
+;; Org: Heading better bullet list
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode))
+;(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+;(org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+;; Org: Scale up headings
+ (dolist (face '((org-level-1 . 1.4)
+        	 (org-level-2 . 1.35)
+        	 (org-level-3 . 1.25)
+        	 (org-level-4 . 1.2)
+        	 (org-level-5 . 1.1)
+        	 (org-level-6 . 1.1)
+        	 (org-level-7 . 1.1)
+        	 (org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+;; Org: Ensure that anything that should be fixed-pitch appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-table nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(ord-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+;; Org: Latex support
+;; https://github.com/io12/org-fragtog
+(use-package org-fragtog)
+(add-hook 'org-mode-hook 'org-fragtog-mode)
+
+;; Org: Centralize the text editor
+(defun goldfish/org-mode-visual-fill()
+  (setq visual-fill-column-width 100
+    visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :defer t
+  :hook (org-mode . goldfish/org-mode-visual-fill))
 
 ;; ----------------------- ;;
 ;;   Custom variables      ;;

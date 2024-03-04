@@ -11,7 +11,15 @@ function install_essentials() {
 
     echo "Installing essentials..."
     sudo nala -y install \
-        vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep
+         vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep \
+
+         # For latex support...
+	 # Look https://emacs.stackexchange.com/a/73197 for more info on
+	 # rendering Latex on emacs
+         latex dvipng texlive-latex-extra \
+
+	 # Fonts
+	 fonts-cantarell fonts-jetbrains-mono
 }
 
 function install_rust() {
@@ -21,7 +29,9 @@ function install_rust() {
 
 function install_alacritty() {
     # Install essential: Alacritty
-    sudo nala install -y  pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+    sudo nala install -y  \
+        pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
+        libxkbcommon-dev python3
     sudo nala install -y cargo
 
     echo "Installing alacritty..."
