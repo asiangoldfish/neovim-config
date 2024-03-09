@@ -16,14 +16,14 @@ if [ -d "$XDG_CONFIG_HOME/bashrc" ]; then
     done
 fi
 
-# Bash stuff
+# Bash options
 HISTCONTROL=ignoreboth
 shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 shopt -s checkwinsize
 
-# Debian stuff
+# Debian chroot
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
@@ -45,6 +45,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Colourize the prompt
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -52,6 +53,7 @@ else
 fi
 unset color_prompt force_color_prompt
 
+# Default x11 terminal styling
 case "$TERM" in
 xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
@@ -60,6 +62,7 @@ xterm*|rxvt*)
     ;;
 esac
 
+# Colourized ls
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -80,3 +83,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Ignore upper and lowercase when TAB completion
+# Source: Derek Taylor at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
+bind "set completion-ignore-case on"
