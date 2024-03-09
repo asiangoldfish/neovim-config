@@ -13,7 +13,7 @@ function install_essentials() {
     sudo apt install nala -y 
 
     echo "Installing essentials..."
-    sudo nala -y install \
+    sudo nala install -y \
          vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep \
 
          # For latex support...
@@ -30,15 +30,15 @@ function install_essentials() {
 
 function install_rust() {
     echo "Installing rust..."
-    curl https://sh.rustup.rs -sSf | sh -s -- -y
+    curl https://sh.rustup.rs -sSf | sh -s -- 
 }
 
 function install_alacritty() {
     # Install essential: Alacritty
-    sudo nala install -y  \
+    sudo nala install   \
         pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
         libxkbcommon-dev python3
-    sudo nala install -y cargo
+    sudo nala install  cargo
 
     echo "Installing alacritty..."
     # Get updated rust version
@@ -53,7 +53,7 @@ function install_alacritty() {
 function install_window_manager() {
     # i3
     echo "Installing i3..."
-    sudo nala install -y i3 --no-install-recommends
+    sudo nala install  i3 --no-install-recommends
 }
 
 function install_dotfiles() {
@@ -71,7 +71,7 @@ function install_dotfiles() {
 function install_haskell() {
     # Installing Haskell toolchains
     # Source: https://stackoverflow.com/a/72953383
-    sudo nala install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 &&
+    sudo nala install  build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 &&
     curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=latest BOOTSTRAP_HASKELL_CABAL_VERSION=latest BOOTSTRAP_HASKELL_INSTALL_STACK=1 BOOTSTRAP_HASKELL_INSTALL_HLS=1 BOOTSTRAP_HASKELL_ADJUST_BASHRC=P sh
 }
 
