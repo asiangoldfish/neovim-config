@@ -36,7 +36,7 @@ function install_alacritty() {
     sudo nala install -y \
         pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
         libxkbcommon-dev python3
-    sudo nala install  cargo
+    sudo nala install -y cargo
 
     echo "Installing alacritty..."
     # Get updated rust version
