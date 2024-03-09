@@ -33,7 +33,7 @@ function install_rust() {
 
 function install_alacritty() {
     # Install essential: Alacritty
-    sudo nala install   \
+    sudo nala install -y \
         pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
         libxkbcommon-dev python3
     sudo nala install  cargo
