@@ -51,7 +51,7 @@ function install_alacritty() {
 function install_window_manager() {
     # i3
     echo "Installing i3..."
-    sudo nala install  i3 --no-install-recommends
+    sudo nala install -y i3 --no-install-recommends
 }
 
 function install_dotfiles() {
@@ -69,7 +69,7 @@ function install_dotfiles() {
 function install_haskell() {
     # Installing Haskell toolchains
     # Source: https://stackoverflow.com/a/72953383
-    sudo nala install  build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 &&
+    sudo nala install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 &&
     curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=latest BOOTSTRAP_HASKELL_CABAL_VERSION=latest BOOTSTRAP_HASKELL_INSTALL_STACK=1 BOOTSTRAP_HASKELL_INSTALL_HLS=1 BOOTSTRAP_HASKELL_ADJUST_BASHRC=P sh
 }
 
