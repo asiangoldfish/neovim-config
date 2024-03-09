@@ -50,5 +50,5 @@ Update the system before executing the post installation script.
 ```sh
 sudo apt update && sudo apt full-upgrade -y
 sudo apt install -y curl
-curl https://raw.githubusercontent.com/asiangoldfish/neovim-config/main/install_scripts/debian.sh | bash
+curl https://raw.githubusercontent.com/asiangoldfish/neovim-config/main/postinstall_scripts/debian.sh | bash
 ```

@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 set -e # Exit immediately if a command fails.
-set -y # Unset variables and parameters fail when used.
+
+# The line below does not work
+# set -y # Unset variables and parameters fail when used.
+
 set -x # Echo commands to make debugging easier.
 
 function install_essentials() {
