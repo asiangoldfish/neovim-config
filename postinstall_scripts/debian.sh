@@ -12,20 +12,18 @@ function install_essentials() {
     echo "Installing nala..."
     sudo apt install nala -y 
 
+
+    
+    # For latex support...
+        # Look https://emacs.stackexchange.com/a/73197 for more info on
+        # rendering Latex on emacs
+
     echo "Installing essentials..."
     sudo nala install -y \
          vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep \
-
-         # For latex support...
-	    # Look https://emacs.stackexchange.com/a/73197 for more info on
-	    # rendering Latex on emacs
          latex dvipng texlive-latex-extra \
-
-	     # Fonts
     	 fonts-cantarell fonts-jetbrains-mono \
-
-        # Working with documents
-        pandoc
+         pandoc
 }
 
 function install_rust() {
