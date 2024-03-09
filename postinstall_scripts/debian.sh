@@ -20,7 +20,7 @@ function install_essentials() {
 
     echo "Installing essentials..."
     sudo nala install -y \
-         vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep \
+         vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep rofi \
          dvipng texlive-latex-extra \
     	 fonts-cantarell fonts-jetbrains-mono \
          pandoc
