@@ -86,8 +86,8 @@
 (package-initialize)
 
 ;; Possibly excessive?
-(unless package-archive-contents
-  (refresh-contents))
+;(unless package-archive-contents
+;  (refresh-contents))
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
