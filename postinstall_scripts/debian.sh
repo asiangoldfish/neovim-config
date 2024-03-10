@@ -25,7 +25,10 @@ function install_essentials() {
     sudo nala install -y pandoc
 
     # Email clients
-    sudo nala install thunderbird
+    sudo nala install -y thunderbird
+
+    # Screenshots
+    sudo nala install -y flameshot
 
     # Binaries only for the user
     mkdir -p ~/.local/bin

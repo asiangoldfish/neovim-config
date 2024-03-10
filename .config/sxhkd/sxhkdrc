@@ -20,3 +20,6 @@ super + period
 super + comma
     brightnessctl set 10%-
 
+# Print screen with Flameshot
+Print
+    flameshot gui
