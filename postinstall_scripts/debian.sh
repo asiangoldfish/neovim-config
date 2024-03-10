@@ -30,6 +30,9 @@ function install_essentials() {
     # Screenshots
     sudo nala install -y flameshot
 
+    # Bluetooth
+    sudo nala install -y blueman
+
     # Binaries only for the user
     mkdir -p ~/.local/bin
 }
@@ -100,6 +103,17 @@ function install_lazygit() {
     go install github.com/jesseduffield/lazygit@latest
 }
 
+function install_vscode() {
+    # Get pgp key
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft-archive-keyring.gpg
+    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+    # Install with apt
+    sudo nala update
+    sudo nala install -y code
+}
+
 # Prompt confirmation to begin the installation
 echo "Post installation for your system is about to begin."
 read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
@@ -116,6 +130,7 @@ install_haskell
 install_discord
 install_golang
 install_lazygit
+install_vscode
 
 set +x
 
