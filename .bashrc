@@ -91,3 +91,8 @@ fi
 # Ignore upper and lowercase when TAB completion
 # Source: Derek Taylor at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
 bind "set completion-ignore-case on"
+
+if command -v pyenv; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv init)"
+fi

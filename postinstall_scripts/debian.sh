@@ -33,6 +33,9 @@ function install_essentials() {
     # Bluetooth
     sudo nala install -y blueman
 
+    # Python
+    sudo nala install -y libreadline-dev tk-dev
+
     # Binaries only for the user
     mkdir -p ~/.local/bin
 }
