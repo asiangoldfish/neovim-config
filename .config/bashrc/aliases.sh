@@ -46,7 +46,11 @@ function r {
 ### Category: Package Manager
 #
 # APT FRONTEND
-alias apt='sudo nala'
+alias apt-install='sudo nala install'
+alias apt-update='sudo nala upgrade'
+alias apt-upgrade='sudo nala update && sudo nala upgrade'
+alias apt-uninstall='sudo nala autoremove'
+alias search-package='apt search'
 
 ### Catgory: Utility
 #

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+### Essential updates
+# Packages that are mostly installed with apt goes here. They do not include
+# dependencies, unless necessary to install an essential package.
 function install_essentials() {
     # apt frontend
     echo "Installing nala..."
