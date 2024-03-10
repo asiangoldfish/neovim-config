@@ -5,6 +5,7 @@ for_window[class="PeaZip"] floating enable
 for_window[class="Yad"] floating enable
 for_window[class="Blueman-manager"] floating enable
 for_window[class="feh"] floating enable
+for_window[class="Pavucontrol"] floating enable
 
 # Enforce fibonacci layout
 default_orientation vertical #start in opposite orientation from your monitor
