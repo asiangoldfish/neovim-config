@@ -72,11 +72,6 @@
 ;; Set tab size
 (setq lisp-indent-offset 2)
 
-;; ------------------------------ ;;
-;;         Latex Support          ;;
-;; ------------------------------ ;;
-; (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
-
 ;; -------------------------------;;
 ;; Initialize package sources     ;;
 ;; -------------------------------;;
@@ -285,15 +280,23 @@
 
   (visual-line-mode 1)
   (setq org-adapt-indentation t)
-  (setq evil-auto-indent nil))
+  (setq evil-auto-indent nil)
 
-;; Org: Get the latest version
+  ;; Set latex font size
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)))
+
 (use-package org
   :hook (org-mode . goldfish/org-mode-setup)
   :config
   (setq org-ellipsis " ⮟")  ; Appears when collapsing blocks
   org-hide-emphasis-markers t
   (goldfish/org-mode-setup)) ; Hide formatting characters
+
+;; ------------------------------ ;;
+;;         Latex Support          ;;
+;; ------------------------------ ;;
+;(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+;(setq after! org (plist-put org-format-latex-options :scale 1.5))
 
 
 

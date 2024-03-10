@@ -121,6 +121,13 @@ HELP
     fi
 }
 
+# LF: The List File File Manager
+# Change directory to whatever lf is at after exiting it
+if [ -f "~/.config/lf/lfcd" ]; then
+    source "~/.config/lf/lfcd"
+    alias lf='lfcd'
+fi
+
 ### Category: Miscellaneous
 #
 # BASH ALIASES
@@ -129,3 +136,4 @@ HELP
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+

@@ -27,7 +27,7 @@ exec --no-startup-id picom
 #####################
 # Keyboard
 ###
-# Reset modifier keys
-exec setxkbmap -option
 # Set keyboard layout
 exec --no-startup-id setxkbmap no
+# Reset modifier keys
+#exec -no-startup-id setxkbmap -option
