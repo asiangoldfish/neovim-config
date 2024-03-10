@@ -21,8 +21,11 @@ function install_essentials() {
     # Fonts
     sudo nala install -y fonts-cantarell fonts-jetbrains-mono
 
-    # PDF converter
+    # PDF converters
     sudo nala install -y pandoc
+
+    # Email clients
+    sudo nala install thunderbird
 
     # Binaries only for the user
     mkdir -p ~/.local/bin
