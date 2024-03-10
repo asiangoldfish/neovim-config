@@ -1,21 +1,32 @@
-# Load aliases from the conventional .bash_aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# aliases.sh
+#
+# Aliases and callable functions from the terminal. These provide quick ways
+# to open applications or to perform operations like archive extractions.
+# Aliases are categorized as follows:
+#
+#   - Version Control
+#   - Text Editor
+#   - Package Manager
+#   - Utility
+#   - Miscellaneous
+#
+# Use your preferred search method and search the keyword "Category: " to find
+# exactly what you need.
 
-# Copy stdout and stderr to X clipboard
-alias copy='xsel -ib'
-
-# Git front-end
+### Category: Version Control
+#
+# Git front-end. Makes working with Git easier and more efficient.
 alias lg='lazygit'
 
-# Neovim
+
+### Category: Text Editor
+#
+# NeoVim, the IMproved Vi IMproved.
 alias vim='nvim'
 
-# apt front-end. Remove if not needed
-alias apt='sudo nala'
-
-# Make the shell cd to ranger's browsed directory
+# RANGER
+# When using ranger using the 'r' macro, the parent process will cd to ranger's
+# current working directory after quitting the program. 
 function r {
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t tmp.XXXXXX)"
@@ -32,7 +43,18 @@ function r {
     command rm -f -- "$tempfile" 2>/dev/null
 }
 
-### ARCHIVE EXTRACTION
+### Category: Package Manager
+#
+# APT FRONTEND
+alias apt='sudo nala'
+
+### Catgory: Utility
+#
+# COPY COMMAND OUTPUT
+# Copy stdout and stderr to X clipboard
+alias copy='xsel -ib'
+
+# ARCHIVE EXTRACTION
 # usage: ex <file>
 # Source: Derek Taylor at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
 function extract ()
@@ -94,3 +116,12 @@ HELP
         ex_help | less
     fi
 }
+
+### Category: Miscellaneous
+#
+# BASH ALIASES
+# If the conventional .bash_aliases exists, then settings there may override
+# anything in this file.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi

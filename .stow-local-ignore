@@ -4,3 +4,5 @@
 postinstall_scripts
 ^/README.*
 ^/LICENSE.*
+
+docs

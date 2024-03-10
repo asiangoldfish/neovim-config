@@ -1,3 +1,7 @@
+# environment.sh
+#
+# Environment variables for Bash interactive shell.
+
 # Neovim
 export EDITOR='nvim'
 

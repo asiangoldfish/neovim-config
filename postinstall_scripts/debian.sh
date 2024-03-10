@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-set -e # Exit immediately if a command fails.
-
-# The line below does not work
-# set -y # Unset variables and parameters fail when used.
-
-set -x # Echo commands to make debugging easier.
-
 function install_essentials() {
     # apt frontend
     echo "Installing nala..."
@@ -85,7 +78,6 @@ function install_discord() {
     cd ~/Downloads
     wget "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
     sudo nala install -y ./discord.deb
-    cd ~
 }
 
 function install_golang() {
@@ -99,6 +91,14 @@ function install_lazygit() {
     go install github.com/jesseduffield/lazygit@latest
 }
 
+# Prompt confirmation to begin the installation
+echo "Post installation for your system is about to begin."
+read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
+
+set -e # Exit immediately if a command fails.
+# The line below does not work
+# set -y # Unset variables and parameters fail when used.
+set -x # Echo commands to make debugging easier.
 install_essentials
 install_rust
 install_alacritty

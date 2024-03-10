@@ -1,3 +1,7 @@
+# .bashrc
+#
+# The Bash shell configuration file.
+
 # Interactive mode
 case $- in
     *i*) ;;
