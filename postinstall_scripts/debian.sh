@@ -117,6 +117,10 @@ function install_vscode() {
     sudo nala install -y code
 }
 
+function install_gtk3_dev() {
+    sudo nala install -y python3-gi
+}
+
 # Prompt confirmation to begin the installation
 echo "Post installation for your system is about to begin."
 read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
@@ -134,6 +138,7 @@ install_discord
 install_golang
 install_lazygit
 install_vscode
+install_gtk3_dev
 
 set +x
 
