@@ -42,11 +42,13 @@ function install_essentials() {
 }
 
 function install_rust() {
+    command -v rustup > /dev/null && return
     echo "Installing rust..."
     RUSTUP_INIT_SKIP_PATH_CHECK=yes curl https://sh.rustup.rs -sSf | sh -s -- 
 }
 
 function install_alacritty() {
+    command -v alacritty > /dev/null && return
     # Install essential: Alacritty
     sudo nala install -y \
         pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
@@ -65,12 +67,17 @@ function install_alacritty() {
 
 function install_window_manager() {
     # i3
+    command -v i3 > /dev/null && return
     echo "Installing i3..."
     sudo nala install -y i3 --no-install-recommends
 }
 
 function install_dotfiles() {
-    echo "Cloning neovim-config..."
+    if [ -d "$HOME/dotfiles" ]; then
+        return
+    fi
+
+    echo "Cloning dotfiles from GitHub..."
     # Edit the URL if to use your own config
     git clone --recurse-submodules https://github.com/asiangoldfish/neovim-config.git ~/dotfiles
     cd ~/dotfiles
@@ -78,11 +85,12 @@ function install_dotfiles() {
     # Overwrite existing files
     echo "Deploying dotfiles from ~/dotfiles"
     stow --adopt
-    git restore --hard HEAD
+    git restore
     stow .
 }
 
 function install_haskell() {
+    command -v ghcup && return
     # Installing Haskell toolchains
     # Source: https://stackoverflow.com/a/72953383
     sudo nala install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
@@ -90,6 +98,8 @@ function install_haskell() {
 }
 
 function install_discord() {
+    command -v discord > /dev/null && return
+
     mkdir -p ~/Downloads
     cd ~/Downloads
     wget "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
@@ -97,16 +107,27 @@ function install_discord() {
 }
 
 function install_golang() {
+    command -v go > /dev/null && return
+    if [ -d "$HOME/.local/bin/go" ]; then
+        return
+    fi
+
     cd ~/Downloads
     wget 'https://go.dev/dl/go1.22.1.linux-amd64.tar.gz'
     sudo tar -C ~/.local/bin -xzf 'go1.22.1.linux-amd64.tar.gz'
 }
 
 function install_lazygit() {
+    if [ -f "$HOME/go/bin/lazygit" ]; then
+        return;
+    fi
+
     go install github.com/jesseduffield/lazygit@latest
 }
 
 function install_vscode() {
+    command -v code > /dev/null && return
+
     # Get pgp key
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft-archive-keyring.gpg
@@ -117,9 +138,35 @@ function install_vscode() {
     sudo nala install -y code
 }
 
+function install_neovim() {
+    command -v nvim > /dev/null && return
+
+    # Build instructions from 
+    # https://github.com/neovim/neovim/blob/master/BUILD.md
+    sudo nala install ninja-build gettext cmake unzip curl build-essential
+    
+    if [ ! -d "$HOME/Downloads" ]; then
+        mkdir "$HOME/Downloads"
+    fi
+    cd ~/Downloads
+    git clone https://github.com/neovim/neovim
+    cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+    cd build && cpack -G DEB && sudo dpkg -i nvim-linux64.deb
+}
+
 function install_gtk3_dev() {
     sudo nala install -y python3-gi
 }
+
+function install_dotfiles_config() {
+    sudo nala install
+    git clone https://github.com/asiangoldfish/neovim-config.git $HOME/dotfiles
+    cd ~/dotfiles
+    stow --adopt
+    git reset
+    stow .
+}
+
 
 # Prompt confirmation to begin the installation
 echo "Post installation for your system is about to begin."
@@ -143,7 +190,10 @@ export PATH="$PATH:$GOROOT/bin"
 
 install_lazygit
 install_vscode
+install_neovim
 install_gtk3_dev
+
+install_dotfiles
 
 set +x
 
