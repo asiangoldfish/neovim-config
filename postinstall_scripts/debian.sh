@@ -8,9 +8,10 @@ function install_essentials() {
     echo "Installing nala..."
     sudo apt install nala -y
 
+    # fish omitted
     echo "Installing essentials..."
     sudo nala install -y \
-        vim git curl stow fish yad sxhkd cmake emacs feh picom ripgrep rofi \
+        vim git curl stow yad sxhkd cmake emacs feh picom ripgrep rofi \
         ranger polybar
 
     # For latex support...
