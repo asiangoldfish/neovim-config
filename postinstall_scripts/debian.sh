@@ -136,6 +136,11 @@ install_window_manager
 install_haskell
 install_discord
 install_golang
+
+# Path needs to include go binary directory before continuing with installing lazygit
+export GOROOT="$HOME/.local/bin/go"
+export PATH="$PATH:$GOROUTE/bin"
+
 install_lazygit
 install_vscode
 install_gtk3_dev
