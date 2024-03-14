@@ -90,7 +90,7 @@ function install_dotfiles() {
     echo "Deploying dotfiles from ~/dotfiles"
     stow --adopt
     git restore
-    stow .
+    ./bin/dotfiles -s
 }
 
 function install_haskell() {
