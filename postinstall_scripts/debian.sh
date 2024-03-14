@@ -89,7 +89,7 @@ function install_dotfiles() {
     # Overwrite existing files
     echo "Deploying dotfiles from ~/dotfiles"
     stow --adopt .
-    git restore
+    git reset
     stow .
 }
 
