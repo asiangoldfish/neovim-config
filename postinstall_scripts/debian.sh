@@ -139,7 +139,7 @@ install_golang
 
 # Path needs to include go binary directory before continuing with installing lazygit
 export GOROOT="$HOME/.local/bin/go"
-export PATH="$PATH:$GOROUTE/bin"
+export PATH="$PATH:$GOROOT/bin"
 
 install_lazygit
 install_vscode
