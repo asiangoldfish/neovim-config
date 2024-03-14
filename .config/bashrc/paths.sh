@@ -20,8 +20,8 @@ fi
 
 # golang binary (ex. go toolchain)
 if [ -d ".local/bin/go/bin" ]; then
-    export GOROOT="$HOME/.local/bin/go/bin"
-    export PATH="$PATH:$GOROOT/bin"
+    export GOROOT="$HOME/.local/bin/go"
+    export PATH="$PATH:$GOROUTE/bin"
 fi
 
 # go application binaries (installed with 'go install')
