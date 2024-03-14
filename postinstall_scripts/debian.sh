@@ -4,6 +4,10 @@
 # Packages that are mostly installed with apt goes here. They do not include
 # dependencies, unless necessary to install an essential package.
 function install_essentials() {
+    if command -v thunderbird > /dev/null; then
+        return;
+    fi
+
     # apt frontend
     echo "Installing nala..."
     sudo apt install nala -y
@@ -38,17 +42,17 @@ function install_essentials() {
     sudo nala install -y libreadline-dev tk-dev
 
     # Binaries only for the user
-    mkdir -p ~/.local/bin
+    mkdir -p ~/.local/bi
 }
 
 function install_rust() {
-    command -v rustup > /dev/null && return
+    command -v ~/.cargo/bin/rustup > /dev/null && return
     echo "Installing rust..."
     RUSTUP_INIT_SKIP_PATH_CHECK=yes curl https://sh.rustup.rs -sSf | sh -s -- 
 }
 
 function install_alacritty() {
-    command -v alacritty > /dev/null && return
+    command -v ~/.cargo/bin/alacritty > /dev/null && return
     # Install essential: Alacritty
     sudo nala install -y \
         pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev \
@@ -90,7 +94,7 @@ function install_dotfiles() {
 }
 
 function install_haskell() {
-    command -v ghcup && return
+    command -v ghcup > /dev/null && return
     # Installing Haskell toolchains
     # Source: https://stackoverflow.com/a/72953383
     sudo nala install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
@@ -155,6 +159,10 @@ function install_neovim() {
 }
 
 function install_gtk3_dev() {
+    if [ ! -z "$(nala list -i | grep python3-gi)" ]; then
+        return
+    fi
+
     sudo nala install -y python3-gi
 }
 
@@ -171,11 +179,12 @@ function install_dotfiles_config() {
 # Prompt confirmation to begin the installation
 echo "Post installation for your system is about to begin."
 read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
+echo ""
 
 set -e # Exit immediately if a command fails.
 # The line below does not work
 # set -y # Unset variables and parameters fail when used.
-set -x # Echo commands to make debugging easier.
+# set -x # Echo commands to make debugging easier.
 install_essentials
 install_rust
 install_alacritty
@@ -195,14 +204,16 @@ install_gtk3_dev
 
 install_dotfiles
 
-set +x
+# set +x
 
 # Message to install alacritty
-echo "To install alacritty, open a new terminal and run the following command:"
-echo "~/.cargo/bin/cargo install alacritty"
-echo ""
+if ! command -v ~/.cargo/bin/alacritty > /dev/null; then
+    echo ""
+    echo "To install alacritty, open a new terminal and run the following command:"
+    echo "~/.cargo/bin/cargo install alacritty"
+fi
 
 # Prompt for reboot
+echo ""
 echo "Post installation successfully completed!"
 echo "It's recommended to reboot with 'systemctl reboot'"
-
