@@ -16,7 +16,7 @@ function install_essentials() {
     # For latex support...
         # Look https://emacs.stackexchange.com/a/73197 for more info on
         # rendering Latex on emacs
-    sudo nala install -y dvips texlive-latex-extra
+    sudo nala install -y texlive-latex-extra
 
     # Fonts
     sudo nala install -y fonts-cantarell fonts-jetbrains-mono
