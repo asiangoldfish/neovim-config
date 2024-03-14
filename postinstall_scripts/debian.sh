@@ -179,7 +179,6 @@ function install_dotfiles_config() {
 # Prompt confirmation to begin the installation
 echo "Post installation for your system is about to begin."
 read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
-echo ""
 
 set -e # Exit immediately if a command fails.
 # The line below does not work
