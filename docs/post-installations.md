@@ -5,11 +5,18 @@ use my configurations.
 **Disclaimer:** My dotfiles are constantly changing. As a consequence, breaking
 changes *will* occur. Use the instructions and scripts at *your own risk*.
 
+A part of the post installations are installing this dotfiles repository to your
+system. Therefore, you don't need to install it separately to your system.
+
+**Warning:** Any files that exist in your home directory and are included in
+this repository, will be erased and lost. They will not be backed up, because
+the script is meant for newly installed systems only.
+
 ## Distributions
 - [Debian](#debian)
 
 ## Debian
-*Updated 10th of March 2024*
+*Updated 15th of March 2024*
 
 There are a couple of steps involved in setting up a new Debian system. They are
 broken down in the following sections:
@@ -58,7 +65,18 @@ intervention required, as I have not found out how to automate them
     ```
 
 3. Run the installer
-
     ```
     curl https://raw.githubusercontent.com/asiangoldfish/neovim-config/main/postinstall_scripts/debian.sh | bash
     ```
+
+4. When prompted by *rustup*, press Enter to confirm the default options. Afterward, the installer will continue autonomously until it finishes.
+
+4. Install Alacritty (this is required as per my i3 configuration)
+    - Open a new terminal. This ensures that you're using the up-to-date rustc
+        version.
+    - Install Alacritty:
+        ```
+        cargo install alacritty
+        ```
+
+5. Reboot the system. Upon logging in, change to i3.

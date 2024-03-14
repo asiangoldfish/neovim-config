@@ -184,8 +184,8 @@ set -e # Exit immediately if a command fails.
 # The line below does not work
 # set -y # Unset variables and parameters fail when used.
 # set -x # Echo commands to make debugging easier.
-install_essentials
 install_rust
+install_essentials
 install_alacritty
 install_window_manager
 install_haskell
