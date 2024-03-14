@@ -9,7 +9,7 @@ apt install stow git
 
 Clone the directory to your local machine
 ```
-git clone https://github.com/asiangoldfish/neovim-config.git
+git clone https://github.com/asiangoldfish/neovim-config.git $HOME/dotfiles
 ```
 
 Stow the dotfiles to your home directory.
