@@ -88,13 +88,13 @@ function install_dotfiles() {
 
     # Overwrite existing files
     echo "Deploying dotfiles from ~/dotfiles"
-    stow --adopt
+    stow --adopt .
     git restore
-    ./bin/dotfiles -s
+    stow .
 }
 
 function install_haskell() {
-    command -v ghcup > /dev/null && return
+    command -v .ghcup/bin/ghcup > /dev/null && return
     # Installing Haskell toolchains
     # Source: https://stackoverflow.com/a/72953383
     sudo nala install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
