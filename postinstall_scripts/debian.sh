@@ -99,7 +99,7 @@ function install_discord() {
 function install_golang() {
     cd ~/Downloads
     wget 'https://go.dev/dl/go1.22.1.linux-amd64.tar.gz'
-    sudo tar -C ~/.local/bin -xzf '1.22.1.linux-amd64.tar.gz'
+    sudo tar -C ~/.local/bin -xzf 'go1.22.1.linux-amd64.tar.gz'
     chmod u+x ~/.local/bin/go
 }
 
