@@ -42,7 +42,7 @@ function install_essentials() {
     sudo nala install -y libreadline-dev tk-dev
 
     # Binaries only for the user
-    mkdir -p ~/.local/bi
+    mkdir -p ~/.local/bin
 }
 
 function install_rust() {
