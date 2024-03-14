@@ -19,4 +19,3 @@ Either rename your existing dotfiles or scripts, or delete them.
 cd neovim-config
 stow .
 ```
-```
