@@ -16,6 +16,6 @@ Stow the dotfiles to your home directory.
 <b>NB!</b> Stow refuses to stow files if they conflict with existing ones.
 Either rename your existing dotfiles or scripts, or delete them.
 ```
-cd neovim-config
+cd dotfiles
 stow .
 ```
