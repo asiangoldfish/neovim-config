@@ -58,6 +58,7 @@ intervention required, as I have not found out how to automate them
     ```
 
 3. Run the installer
-   ```
+
+    ```
     curl https://raw.githubusercontent.com/asiangoldfish/neovim-config/main/postinstall_scripts/debian.sh | bash
     ```
