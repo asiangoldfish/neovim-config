@@ -66,6 +66,13 @@ local files
   [[ -n "$files" ]] && nvim "${files[@]}"
 }
 
+cde() {
+local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && cd $(dirname "${files[@]}")
+}
+
+
 # ARCHIVE EXTRACTION
 # usage: ex <file>
 # Source: Derek Taylor at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
