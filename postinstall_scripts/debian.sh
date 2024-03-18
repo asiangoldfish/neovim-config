@@ -43,6 +43,9 @@ function install_essentials() {
 
     # Binaries only for the user
     mkdir -p ~/.local/bin
+
+    # File management
+    sudo apt nala install -y fzf
 }
 
 function install_rust() {

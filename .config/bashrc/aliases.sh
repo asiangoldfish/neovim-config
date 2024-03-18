@@ -59,6 +59,9 @@ alias apt-search='apt search'
 # Copy stdout and stderr to X clipboard
 alias copy='xsel -ib'
 
+# Fuzzy find commands
+alias f='fzf'
+
 # ARCHIVE EXTRACTION
 # usage: ex <file>
 # Source: Derek Taylor at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
