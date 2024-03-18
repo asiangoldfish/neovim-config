@@ -8,6 +8,7 @@
 #   - Text Editor
 #   - Package Manager
 #   - Utility
+#   - Network
 #   - Miscellaneous
 #
 # Use your preferred search method and search the keyword "Category: " to find
@@ -50,7 +51,7 @@ alias apt-install='sudo nala install'
 alias apt-update='sudo nala upgrade'
 alias apt-upgrade='sudo nala update && sudo nala upgrade'
 alias apt-uninstall='sudo nala autoremove'
-alias search-package='apt search'
+alias apt-search='apt search'
 
 ### Catgory: Utility
 #
@@ -126,6 +127,12 @@ HELP
 if [ -f "~/.config/lf/lfcd" ]; then
     source "~/.config/lf/lfcd"
     alias lf='lfcd'
+fi
+
+### Category: Network
+# Cisco Anyconnect for VPN
+if [ -d /opt/cisco/anyconnect ]; then
+    PATH="$PATH:/opt/cisco/anyconnect/bin"
 fi
 
 ### Category: Miscellaneous

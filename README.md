@@ -8,6 +8,7 @@ to quickly get new systems running.
 - [Compatibility](#compabilitity)
 - [Configurations](./docs/deploy-configutation.md)
 - [Post Installations](./docs/post-installations.md)
+- [Roadmap](
 - [Legal](#legal)
 
 ## Compabilitity
@@ -19,3 +20,7 @@ The dotfiles and scripts still work for other distributions, and even other oper
 
 # Legal
 While the [MIT license](./LICENSE) is permissive, products using this project are required to contain it.
+
+# Roadmap
+- Install [openconnect-sso](https://github.com/vlaci/openconnect-sso) to Debian
+
