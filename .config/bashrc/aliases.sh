@@ -59,8 +59,12 @@ alias apt-search='apt search'
 # Copy stdout and stderr to X clipboard
 alias copy='xsel -ib'
 
-# Fuzzy find commands
-alias f='fzf'
+# Fuzzy find and edit file
+fe() {
+local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && nvim "${files[@]}"
+}
 
 # ARCHIVE EXTRACTION
 # usage: ex <file>
