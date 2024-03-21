@@ -45,7 +45,7 @@ function install_essentials() {
     mkdir -p ~/.local/bin
 
     # File management
-    sudo apt nala install -y fzf
+    sudo nala install -y fzf
 }
 
 function install_rust() {
