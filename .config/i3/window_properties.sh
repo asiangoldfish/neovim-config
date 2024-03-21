@@ -1,5 +1,6 @@
 # Window modes for applications
 for_window[class="Zotero"] floating enable
+for_window[class="PureRef"] floating enable
 for_window[class="Thunar"] floating enable
 for_window[class="PeaZip"] floating enable
 for_window[class="Yad"] floating enable
