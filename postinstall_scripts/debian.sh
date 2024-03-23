@@ -18,7 +18,7 @@ function install_essentials() {
         vim git curl stow yad sxhkd cmake emacs feh picom ripgrep rofi \
         ranger polybar
 
-    # For latex support...
+        # For latex support...
         # Look https://emacs.stackexchange.com/a/73197 for more info on
         # rendering Latex on emacs
     sudo nala install -y texlive-latex-extra
@@ -46,6 +46,9 @@ function install_essentials() {
 
     # File management
     sudo nala install -y fzf
+
+    # Development
+    sudo nala install -y meson
 }
 
 function install_rust() {

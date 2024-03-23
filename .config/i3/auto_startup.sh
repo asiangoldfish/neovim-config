@@ -16,7 +16,7 @@ exec --no-startup-id nm-applet
 
 # Bar
 #exec --no-startup-id "~/bin/eww daemon && ~/bin/eww open bar_1"
-exec --no-startup-id "/usr/bin/polybar --reload mainbar-i3"
+exec --no-startup-id "/usr/bin/polybar mainbar-i3 -c ~/.config/polybar/config.ini"
 
 # Wallpaper
 exec --no-startup-id "/usr/bin/feh --bg-fill ~/wallpapers/0258.jpg"
