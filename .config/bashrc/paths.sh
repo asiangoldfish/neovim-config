@@ -28,3 +28,9 @@ fi
 if [ -d "$HOME/go/bin" ]; then
     export PATH="$PATH:$HOME/go/bin"
 fi
+
+# Ruby gems
+if [ -d "$HOME/gems" ];
+    export GEM_HOME="$HOME/gems"
+    export PATH="$HOME/gems/bin:$PATH"
+fi
