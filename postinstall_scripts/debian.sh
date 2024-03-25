@@ -49,6 +49,9 @@ function install_essentials() {
 
     # Development
     sudo nala install -y meson
+
+    # Ensure gems directory exists to Ruby gems install packages locally
+    mkdir -p "$HOME/gems"
 }
 
 function install_rust() {
