@@ -1,6 +1,6 @@
 
 # kill focused window
-bindsym $mod+q kill
+bindsym $mod+q split toggle kill
 
 # Web browser
 #bindsym $mod+b exec --no-startup-id firefox

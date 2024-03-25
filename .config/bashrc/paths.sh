@@ -30,7 +30,7 @@ if [ -d "$HOME/go/bin" ]; then
 fi
 
 # Ruby gems
-if [ -d "$HOME/gems" ];
+if [ -d "$HOME/gems" ]; then
     export GEM_HOME="$HOME/gems"
     export PATH="$HOME/gems/bin:$PATH"
 fi
