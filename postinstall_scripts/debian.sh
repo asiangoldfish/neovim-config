@@ -81,8 +81,38 @@ function install_alacritty() {
 function install_window_manager() {
     # i3
     command -v i3 > /dev/null && return
+
+    # Some distros have outdated i3. Ubuntu and its derivatives
+    # on stable version have very outdated versions of i3. So
+    # we just built it ourselves.
+
+    # Get distro name
+    source /etc/os-release
+
+    "$NAME"
+
+    if [ -z "$NAME" ]; then # Empty name. Don't install i3
+        return 1
+    fi
+
     echo "Installing i3..."
-    sudo nala install -y i3 --no-install-recommends
+
+    if [ "$NAME" == "Debian GNU/Linux" ]; then
+        sudo nala install -y i3 --no-install-recommends
+    else
+        sudo nala install -y build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev ninja meson
+        
+        if [ ! -d "$HOME/Downloads" ]; then mkdir "$HOME/Downloads"; fi
+        git clone https://github.com/i3/i3.git
+        cd i3
+        mkdir -p build && cd build
+        meson ..
+        ninja
+
+        # TODO: Post-installation (.application, mv to /usr/i3, ...)
+    fi
+
+
 }
 
 function install_dotfiles() {
