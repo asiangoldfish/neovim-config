@@ -13,6 +13,7 @@ for_window[class="Matplotlib"] floating enable
 for_window[class="Nm-connection-editor"] floating enable
 for_window[class="Com.cisco.anyconnect.gui"] floating enable
 for_window[class="Cisco AnyConnect Secure Mobility Client"] floating enable
+for_window[class="Org.gnome.Nautilus"] floating enable
 
 # Enforce fibonacci layout
 default_orientation vertical #start in opposite orientation from your monitor

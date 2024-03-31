@@ -23,3 +23,6 @@ super + comma
 # Print screen with Flameshot
 Print
     flameshot gui
+
+super + c
+    code
