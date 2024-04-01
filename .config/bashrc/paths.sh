@@ -31,6 +31,10 @@ fi
 
 # Ruby gems
 if [ -d "$HOME/gems" ]; then
-    export GEM_HOME="$HOME/gems"
-    export PATH="$HOME/gems/bin:$PATH"
+    if [ -z "$XDG_CONFIG_HOME" ]; then
+	XDG_CONFIG_HOME="$HOME/.config"
+    fi
+
+    export GEM_HOME="$XDG_CONFIG_HOME/gems"
+    export PATH="$GEM_HOME/bin:$PATH"
 fi
