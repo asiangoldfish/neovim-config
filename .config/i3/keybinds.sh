@@ -103,4 +103,4 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec bash -c /home/khai/bin/logout-menu.sh
+bindsym $mod+Shift+e exec bash -c /home/khai/.local/bin/logout-menu.sh

@@ -38,3 +38,9 @@ if [ -d "$HOME/gems" ]; then
     export GEM_HOME="$XDG_CONFIG_HOME/gems"
     export PATH="$GEM_HOME/bin:$PATH"
 fi
+
+# Rust rover
+if [ -d "$HOME/repos/rust-rover/bin" ]; then
+    export PATH="$PATH:$HOME/repos/rust-rover/bin"
+fi
+

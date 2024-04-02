@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Rust Rover
+Comment=Edit text
+Exec=rust-rover.sh
+Icon=rustrover.png
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;Utility;
