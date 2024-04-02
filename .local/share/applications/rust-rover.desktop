@@ -1,7 +1,8 @@
 [Desktop Entry]
 Name=Rust Rover
 Comment=Edit text
-Exec=rustrover.sh
+Path=/home/khai/repos/rust-rover/bin
+Exec=bash -c "$HOME/repos/rust-rover/bin/rustrover.sh"
 Icon=rustrover.png
 Type=Application
 Terminal=false
