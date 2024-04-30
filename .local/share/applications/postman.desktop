@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Postman
+Comment=Edit text
+Path=/home/khai/repos/Postman
+Exec="/home/khai/repos/Postman/app/Postman"
+Icon=/home/khai/repos/Postman/app/icons/icon_128x128.png
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;Utility;

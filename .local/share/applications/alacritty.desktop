@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Alacritty
+Comment=GPU accelerated text editor
+Path=/home/khai/.cargo/bin/
+Exec=/home/khai/.cargo/bin/alacritty
+Icon=alacritty.png
+Type=Application
+Terminal=false
+Categories=Development;TextEditor;Utility;
