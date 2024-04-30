@@ -150,11 +150,14 @@ if [ -d /opt/cisco/anyconnect ]; then
 fi
 
 ### Category: Miscellaneous
-#
+
+alias cls='clear'
+
 # BASH ALIASES
 # If the conventional .bash_aliases exists, then settings there may override
 # anything in this file.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
 
