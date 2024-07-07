@@ -43,3 +43,6 @@ local opts = {
 
 -- Make lazy look for all plugins in the "plugins" directory
 require("lazy").setup("plugins", opts)
+
+-- Source additional configs
+require('config.colorscheme')

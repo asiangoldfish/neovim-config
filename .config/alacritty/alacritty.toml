@@ -2,7 +2,7 @@
 opacity=0.97
 
 [font]
-size=9.0
+size=14.0
 
 [shell]
 program='/usr/bin/bash'
