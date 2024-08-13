@@ -89,8 +89,6 @@ function install_window_manager() {
     # Get distro name
     source /etc/os-release
 
-    "$NAME"
-
     if [ -z "$NAME" ]; then # Empty name. Don't install i3
         return 1
     fi
