@@ -1,8 +1,16 @@
+working_directory = "/home/khai"
+
 [window]
 opacity=0.97
 
+# Window size
+dimensions = { columns = 80, lines = 30 }
+
+# Window startup position
+position = { x = 720, y = 360 }  # Default: "None"
+
 [font]
-size=13.0
+size=12.0
 
 [shell]
 program='/usr/bin/bash'
