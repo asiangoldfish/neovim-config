@@ -44,3 +44,6 @@ if [ -d "$HOME/repos/rust-rover/bin" ]; then
     export PATH="$PATH:$HOME/repos/rust-rover/bin"
 fi
 
+if [ -d "$HOME/.zig" ]; then
+    export PATH="$PATH:$HOME/.zig"
+fi

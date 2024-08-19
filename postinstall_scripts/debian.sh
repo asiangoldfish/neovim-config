@@ -55,7 +55,7 @@ function install_essentials() {
 }
 
 function install_rust() {
-    command -v ~/.cargo/bin/rustup > /dev/null && return
+    command -v ~/.cargo/bin/rustup > /dev/null && return 0
     echo "Installing rust..."
     RUSTUP_INIT_SKIP_PATH_CHECK=yes curl https://sh.rustup.rs -sSf | sh -s -- 
 }
@@ -218,6 +218,33 @@ function install_dotfiles_config() {
     stow .
 }
 
+# Ziglang version 0.13.0
+function install_ziglang() {
+    # Skip the installation if zig is already installed
+    if [ -d "$HOME/.zig" ] && [ -f "$HOME/.zig/zig" ]; then
+        return 0
+    fi
+
+    # Install Ziglang
+    if [ -z "$HOME" ]; then
+        HOME="$(echo ~)"
+    fi
+
+    echo "Installing Ziglang version 0.13.0..."
+    mkdir -p ~/Downloads
+    cd ~/Downloads
+    wget 'https://ziglang.org/builds/zig-linux-x86_64-0.14.0-dev.1200+104553714.tar.xz' -O zig-archive
+    mkdir -p "$HOME/.zig"
+    tar xf 'zig-archive' --directory="$HOME/.zig"
+
+    ## Remove unecessary directory
+    cd "$HOME/.zig"
+    mv "zig-linux-x86_64-0.14.0-dev.1200+104553714"/* .
+    rmdir "zig-linux-x86_64-0.14.0-dev.1200+104553714"
+
+    return 0
+}
+
 function install_nerdfonts() {
     if [ -f "$HOME/.local/share/fonts/UbuntuNerdFontPropo-BoldItalic.ttf" ]
     then
@@ -277,10 +304,11 @@ read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
 rust_success="$(install_rust)"
 essentials_success="$(install_essentials)"
 alacritty_success="$(install_alacritty)"
-i3_success="$(install_i3)"
+i3_success="0" #  "$(install_i3)"
 haskell_success="$(install_haskell)"
 discord_success="$(install_discord)"
 golang_success="$(install_golang)"
+ziglang_success="$(install_ziglang)"
 
 # Path needs to include go binary directory before continuing with installing lazygit
 export GOROOT="$HOME/.local/bin/go"
@@ -298,15 +326,15 @@ nerdfonts_success="$(install_nerdfonts)"
 
 # Print errors if any packages failed to install
 ## Rust
-if [ "$rust_success" -gt 0 ]; then echo "Rust failed to install"; fi
+if [[ "$rust_success" -gt 0 ]]; then echo "Rust failed to install"; fi
 
 ## Essential packages
-if [ "$essentials_success" -gt 0 ]; then
+if [[ "$essentials_success" -gt 0 ]]; then
     echo "Essential packages failed to install"
 fi
 
 ## Alacritty
-if [ "$alacritty_success" -gt 0 ]; then
+if [[ "$alacritty_success" -gt 0 ]]; then
     echo "Alacritty failed to install"
     echo ""
     echo "To install alacritty, open a new terminal and run the following command:"
@@ -314,36 +342,39 @@ if [ "$alacritty_success" -gt 0 ]; then
 fi
 
 ## i3
-if [ "$i3_success" -gt 0 ]; then echo "i3wm failed to install"; fi
+if [[ "$i3_success" -gt 0 ]]; then echo "i3wm failed to install"; fi
 
 ## Haskell
-if [ "$haskell_success" -gt 0 ]; then echo "Haskell failed to install"; fi
+if [[ "$haskell_success" -gt 0 ]]; then echo "Haskell failed to install"; fi
 
 ## Discord
-if [ "$discord_success" -gt 0 ]; then echo "Discord failed to install"; fi
+if [[ "$discord_success" -gt 0 ]]; then echo "Discord failed to install"; fi
 
 ## Golang
-if [ "$golang_success" -gt 0 ]; then echo "Golang failed to install"; fi
+if [[ "$golang_success" -gt 0 ]]; then echo "Golang failed to install"; fi
+
+## Zig
+if [[ "$ziglang_success" -gt 0 ]]; then echo "Ziglang failed to install"; fi
 
 ## Lazygit
-if [ "$lazygit_success" -gt 0 ]; then echo "Lazygit failed to install"; fi
+if [[ "$lazygit_success" -gt 0 ]]; then echo "Lazygit failed to install"; fi
 
 ## Visual Studio Code
-if [ "$vscode_success" -gt 0 ]; then
+if [[ "$vscode_success" -gt 0 ]]; then
     echo "Visual Studio Code failed to install"
 fi
 
 ## Neovim
-if [ "$neovim_success" -gt 0 ]; then echo "Neovim failed to install"; fi
+if [[ "$neovim_success" -gt 0 ]]; then echo "Neovim failed to install"; fi
 
 ## GTK Dev Kit
-if [ "$gtkdev_success" -gt 0 ]; then echo "GTK Dev Kit failed to install"; fi
+if [[ "$gtkdev_success" -gt 0 ]]; then echo "GTK Dev Kit failed to install"; fi
 
 ## Dotfiles
-if [ "$dotfiles_success" -gt 0 ]; then echo "Dotfiles failed to employ"; fi
+if [[ "$dotfiles_success" -gt 0 ]]; then echo "Dotfiles failed to employ"; fi
 
 ## Nerd fonts
-if [ "$nerdfonts_success" -gt 0 ]; then echo "Nerd Fonts failed to install"; fi
+if [[ "$nerdfonts_success" -gt 0 ]]; then echo "Nerd Fonts failed to install"; fi
 
 
 # Prompt for reboot
