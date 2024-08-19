@@ -17,3 +17,8 @@ fi
 
 # Haskell toolchain
 [ -f "/home/khai/.ghcup/env" ] && source "/home/khai/.ghcup/env"
+
+# Git
+## Required for cloning the Neovim ahmedkhalf/project.nvim plugin
+export GIT_TERMINAL_PROMPT=1
+
