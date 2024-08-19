@@ -4,54 +4,59 @@
 # Packages that are mostly installed with apt goes here. They do not include
 # dependencies, unless necessary to install an essential package.
 function install_essentials() {
-    if command -v thunderbird > /dev/null; then
-        return;
+    # Nala: APT frontend
+    if ! command -v nala > /dev/null; then
+        echo "Installing nala..."
+        sudo apt install nala -y
     fi
 
-    # apt frontend
-    echo "Installing nala..."
-    sudo apt install nala -y
+    # Essential packages
+    if ! command -v vim > /dev/null; then
+        echo "Installing essentials..."
+        sudo nala install -y \
+            vim git curl stow yad sxhkd cmake emacs feh picom ripgrep rofi \
+            ranger polybar
 
-    # fish omitted
-    echo "Installing essentials..."
-    sudo nala install -y \
-        vim git curl stow yad sxhkd cmake emacs feh picom ripgrep rofi \
-        ranger polybar
+            # For latex support...
+            # Look https://emacs.stackexchange.com/a/73197 for more info on
+            # rendering Latex on emacs
+        sudo nala install -y texlive-latex-extra
 
-        # For latex support...
-        # Look https://emacs.stackexchange.com/a/73197 for more info on
-        # rendering Latex on emacs
-    sudo nala install -y texlive-latex-extra
+        # Fonts
+        sudo nala install -y fonts-cantarell fonts-jetbrains-mono
 
-    # Fonts
-    sudo nala install -y fonts-cantarell fonts-jetbrains-mono
+        # PDF converters
+        sudo nala install -y pandoc
 
-    # PDF converters
-    sudo nala install -y pandoc
+        # Email clients
+        sudo nala install -y thunderbird
 
-    # Email clients
-    sudo nala install -y thunderbird
+        # Screenshots
+        sudo nala install -y flameshot
 
-    # Screenshots
-    sudo nala install -y flameshot
+        # Bluetooth
+        sudo nala install -y blueman
 
-    # Bluetooth
-    sudo nala install -y blueman
+        # Python
+        sudo nala install -y libreadline-dev tk-dev
 
-    # Python
-    sudo nala install -y libreadline-dev tk-dev
+        # Binaries only for the user
+        mkdir -p ~/.local/bin
 
-    # Binaries only for the user
-    mkdir -p ~/.local/bin
+        # File management
+        sudo nala install -y fzf
 
-    # File management
-    sudo nala install -y fzf
+        # Development
+        sudo nala install -y meson
 
-    # Development
-    sudo nala install -y meson
+        # Ensure gems directory exists to Ruby gems install packages locally
+        mkdir -p "$HOME/gems"
+    fi
 
-    # Ensure gems directory exists to Ruby gems install packages locally
-    mkdir -p "$HOME/gems"
+    # Tmux
+    if ! command -v tmux > /dev/null; then
+        sudo nala install -y tmux
+    fi
 }
 
 function install_rust() {
@@ -302,7 +307,7 @@ read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
 # set -x # Echo commands to make debugging easier.
 
 rust_success="$(install_rust)"
-essentials_success="$(install_essentials)"
+install_essentials
 alacritty_success="$(install_alacritty)"
 i3_success="0" #  "$(install_i3)"
 haskell_success="$(install_haskell)"
@@ -327,11 +332,6 @@ nerdfonts_success="$(install_nerdfonts)"
 # Print errors if any packages failed to install
 ## Rust
 if [[ "$rust_success" -gt 0 ]]; then echo "Rust failed to install"; fi
-
-## Essential packages
-if [[ "$essentials_success" -gt 0 ]]; then
-    echo "Essential packages failed to install"
-fi
 
 ## Alacritty
 if [[ "$alacritty_success" -gt 0 ]]; then
