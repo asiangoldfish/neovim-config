@@ -24,6 +24,10 @@ local config = function()
             find_buffers = {
                 theme = "dropdown",
                 previewer = false
+            },
+            projects = {
+                theme = "dropdown",
+                previewer = "false"
             }
         }
     })
@@ -36,6 +40,9 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = config,
     keys = {
+        -- Projects
+        keymap.set("n", "<leader>fd", ":Telescope neovim-project discover<CR>"),
+
         keymap.set("n", "<leader>fk", ":Telescope keymaps<CR>"),
         keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>"),
         keymap.set("n", "<leader>ff", ":Telescope find_files<CR>"),
