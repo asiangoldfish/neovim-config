@@ -78,8 +78,7 @@ function install_alacritty() {
     #~/.cargo/bin/cargo install alacritty
 }
 
-function install_window_manager() {
-    # i3
+function install_i3() {
     command -v i3 > /dev/null && return
 
     # Some distros have outdated i3. Ubuntu and its derivatives
@@ -98,19 +97,24 @@ function install_window_manager() {
     if [ "$NAME" == "Debian GNU/Linux" ]; then
         sudo nala install -y i3 --no-install-recommends
     else
-        sudo nala install -y build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev ninja meson
-        
+        echo "Installing i3 dependencies"
+        sudo nala install -y build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev ninja-build meson
+
+
         if [ ! -d "$HOME/Downloads" ]; then mkdir "$HOME/Downloads"; fi
-        git clone https://github.com/i3/i3.git
+        cd "$HOME/Downloads"
+        sleep 1
+        echo "hi"
+        sleep 1
+        git clone https://github.com/i3/i3.git > /dev/null
+        echo "Exit code i3: $?"
         cd i3
-        mkdir -p build && cd build
-        meson ..
-        ninja
+        mkdir -p build
+        meson .. || return 1
+        ninja || return 1
 
         # TODO: Post-installation (.application, mv to /usr/i3, ...)
     fi
-
-
 }
 
 function install_dotfiles() {
@@ -131,7 +135,9 @@ function install_dotfiles() {
 }
 
 function install_haskell() {
-    command -v .ghcup/bin/ghcup > /dev/null && return
+    command -v ~/.ghcup/bin/ghcup > /dev/null && return
+    command -v ghcup > /dev/null && return
+
     # Installing Haskell toolchains
     # Source: https://stackoverflow.com/a/72953383
     sudo nala install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5
@@ -212,42 +218,133 @@ function install_dotfiles_config() {
     stow .
 }
 
+function install_nerdfonts() {
+    if [ -f "$HOME/.local/share/fonts/UbuntuNerdFontPropo-BoldItalic.ttf" ]
+    then
+        return 0
+    fi
+
+    declare -a fonts=(
+        BitstreamVeraSansMono
+        CodeNewRoman
+        DroidSansMono
+        FiraCode
+        FiraMono
+        Go-Mono
+        Hack
+        Hermit
+        JetBrainsMono
+        Meslo
+        Noto
+        Overpass
+        ProggyClean
+        RobotoMono
+        SourceCodePro
+        SpaceMono
+        Ubuntu
+        UbuntuMono
+    )
+
+    fonts_dir="${HOME}/.local/share/fonts"
+
+    if [[ ! -d "$fonts_dir" ]]; then
+        mkdir -p "$fonts_dir"
+    fi
+
+    for font in "${fonts[@]}"; do
+        zip_file="${font}.zip"
+        download_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${zip_file}"
+        echo "Downloading $download_url"
+        wget "$download_url"
+        yes "n" | unzip "$zip_file" -d "$fonts_dir"
+        rm "$zip_file"
+    done
+
+    find "$fonts_dir" -name '*Windows Compatible*' -delete
+
+    fc-cache -fv
+}
+
 
 # Prompt confirmation to begin the installation
 echo "Post installation for your system is about to begin."
 read -n 1 -r -s -p "Press any key to continue, or CTRL+C to cancel..."
 
-set -e # Exit immediately if a command fails.
 # The line below does not work
 # set -y # Unset variables and parameters fail when used.
 # set -x # Echo commands to make debugging easier.
-install_rust
-install_essentials
-install_alacritty
-install_window_manager
-install_haskell
-install_discord
-install_golang
+
+rust_success="$(install_rust)"
+essentials_success="$(install_essentials)"
+alacritty_success="$(install_alacritty)"
+i3_success="$(install_i3)"
+haskell_success="$(install_haskell)"
+discord_success="$(install_discord)"
+golang_success="$(install_golang)"
 
 # Path needs to include go binary directory before continuing with installing lazygit
 export GOROOT="$HOME/.local/bin/go"
 export PATH="$PATH:$GOROOT/bin"
 
-install_lazygit
-install_vscode
-install_neovim
-install_gtk3_dev
+lazygit_success="$(install_lazygit)"
+vscode_success="$(install_vscode)"
+neovim_success="$(install_neovim)"
+gtkdev_success="$(install_gtk3_dev)"
 
-install_dotfiles
+dotfiles_success="$(install_dotfiles)"
+nerdfonts_success="$(install_nerdfonts)"
 
 # set +x
 
-# Message to install alacritty
-if ! command -v ~/.cargo/bin/alacritty > /dev/null; then
+# Print errors if any packages failed to install
+## Rust
+if [ "$rust_success" -gt 0 ]; then echo "Rust failed to install"; fi
+
+## Essential packages
+if [ "$essentials_success" -gt 0 ]; then
+    echo "Essential packages failed to install"
+fi
+
+## Alacritty
+if [ "$alacritty_success" -gt 0 ]; then
+    echo "Alacritty failed to install"
     echo ""
     echo "To install alacritty, open a new terminal and run the following command:"
     echo "~/.cargo/bin/cargo install alacritty"
 fi
+
+## i3
+if [ "$i3_success" -gt 0 ]; then echo "i3wm failed to install"; fi
+
+## Haskell
+if [ "$haskell_success" -gt 0 ]; then echo "Haskell failed to install"; fi
+
+## Discord
+if [ "$discord_success" -gt 0 ]; then echo "Discord failed to install"; fi
+
+## Golang
+if [ "$golang_success" -gt 0 ]; then echo "Golang failed to install"; fi
+
+## Lazygit
+if [ "$lazygit_success" -gt 0 ]; then echo "Lazygit failed to install"; fi
+
+## Visual Studio Code
+if [ "$vscode_success" -gt 0 ]; then
+    echo "Visual Studio Code failed to install"
+fi
+
+## Neovim
+if [ "$neovim_success" -gt 0 ]; then echo "Neovim failed to install"; fi
+
+## GTK Dev Kit
+if [ "$gtkdev_success" -gt 0 ]; then echo "GTK Dev Kit failed to install"; fi
+
+## Dotfiles
+if [ "$dotfiles_success" -gt 0 ]; then echo "Dotfiles failed to employ"; fi
+
+## Nerd fonts
+if [ "$nerdfonts_success" -gt 0 ]; then echo "Nerd Fonts failed to install"; fi
+
 
 # Prompt for reboot
 echo ""
