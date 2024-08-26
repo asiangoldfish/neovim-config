@@ -1,5 +1,5 @@
 local config = function()
-    require("nvim-treesitter.configs").setup({
+    require("nvim-ts-autotag").setup({
         indent = {
             enable = true
         },
@@ -23,7 +23,8 @@ local config = function()
             "cpp",
             "java",
             "glsl",
-            "hlsl"
+            "hlsl",
+            "lua",
         },
         auto_install = true,
         highlight = {
