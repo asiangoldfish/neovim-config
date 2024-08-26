@@ -59,7 +59,7 @@ function r {
 # APT FRONTEND
 alias apt-install='sudo nala install'
 alias apt-update='sudo nala upgrade'
-alias apt-upgrade='sudo nala update && sudo nala upgrade'
+alias apt-upgrade='sudo nala update && sudo nala upgrade && flatpak upgrade'
 alias apt-uninstall='sudo nala autoremove'
 alias apt-search='apt search'
 
