@@ -22,3 +22,9 @@ fi
 ## Required for cloning the Neovim ahmedkhalf/project.nvim plugin
 export GIT_TERMINAL_PROMPT=1
 
+# Ruby
+if [ -d "$HOME/gems" ];
+    export GEM_HOME="$HOME/gems"
+    export PATH="$HOME/gems/bin:$PATH"
+fi
+
