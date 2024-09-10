@@ -23,7 +23,7 @@ fi
 export GIT_TERMINAL_PROMPT=1
 
 # Ruby
-if [ -d "$HOME/gems" ];
+if [ -d "$HOME/gems" ]; then
     export GEM_HOME="$HOME/gems"
     export PATH="$HOME/gems/bin:$PATH"
 fi
