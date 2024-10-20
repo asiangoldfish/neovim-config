@@ -50,6 +50,8 @@ function install_essentials() {
         sudo nala install -y meson
 
         # Ensure gems directory exists to Ruby gems install packages locally
+        sudo nala install ruby-full build-essential zlib1g-dev
+        gem install jekyll bundler
         mkdir -p "$HOME/gems"
     fi
 
