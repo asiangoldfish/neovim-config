@@ -37,25 +37,49 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# Colour output
-if [ -n "$force_color_prompt" ]; then
-    # We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	    color_prompt=yes
-    else
-	    color_prompt=
-    fi
-fi
+source "/etc/os-release"
 
-# Colourize the prompt
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# Colour output
+# TODO Get a universally coloured Bash prompt
+if [ "$NAME" != "Arch Linux" ]; then
+    if [ -n "$force_color_prompt" ]; then
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+            color_prompt=yes
+        else
+            color_prompt=
+        fi
+    fi
+
+    # Colourize the prompt
+    if [ "$color_prompt" = yes ]; then
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    else
+        PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    fi
+    unset color_prompt force_color_prompt
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    force_color_prompt=true
+    export PS1="\[\e[31m\][\[\e[m\]\[\e[38;5;172m\]\u\[\e[m\]@\[\e[38;5;153m\]\h\[\e[m\] \[\e[38;5;214m\]\W\[\e[m\]\[\e[31m\]]\[\e[m\]\\$ "
+ 
+cat<<'EOF'
+           _..._
+         .'     '.
+        /  _   _  \
+        | (o)_(o) |
+         \(     ) /
+         //'._.'\ \
+        //   .   \ \
+       ||   .     \ \
+       |\   :     / |
+       \ `) '   (`  /_
+     _)``".____,.'"` (_
+     )     )'--'(     (
+      '---`      `---`
+EOF
 fi
-unset color_prompt force_color_prompt
 
 # Default x11 terminal styling
 case "$TERM" in
