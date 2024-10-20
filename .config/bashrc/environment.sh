@@ -6,7 +6,9 @@
 export EDITOR='nvim'
 
 # Cargo
-source "$HOME/.cargo/env"
+if [ -d "$HOME/.cargo/" ]; then
+    source "$HOME/.cargo/env"
+fi
 
 # Python pyenv
 if [ -d "$HOME/.pyenv" ]; then
