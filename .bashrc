@@ -78,6 +78,9 @@ cat<<'EOF'
      _)``".____,.'"` (_
      )     )'--'(     (
       '---`      `---`
+
+      I use Arch BTW
+
 EOF
 fi
 
@@ -116,3 +119,7 @@ fi
 # Source: Derek Taylor at https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc
 bind "set completion-ignore-case on"
 
+# Git autocompletion
+if [ -f "/usr/share/bash-completion/completions/git" ]; then
+    source /usr/share/bash-completion/completions/git
+fi
