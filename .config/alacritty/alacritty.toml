@@ -1,4 +1,3 @@
-working_directory = "/home/khai"
 
 [window]
 opacity=0.97
@@ -12,6 +11,11 @@ position = { x = 720, y = 360 }  # Default: "None"
 [font]
 size=12.0
 
-[shell]
+[general]
+working_directory = "/home/khai"
+
+[terminal]
+
+[terminal.shell]
 program='/usr/bin/bash'
 
