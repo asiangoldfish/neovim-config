@@ -30,10 +30,11 @@ alias vim='nvim'
 isUsingWayland=$( loginctl show-session $(awk '/tty/ {print $1}' <(loginctl)) -p Type | awk -F= '{print $2}' )
 
 # https://www.reddit.com/r/Fedora/comments/wpkws3/comment/ikhc12o/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-if [ "$isUsingWayland" == "wayland" ]; then
-    alias code='echo "Launching code with unblurried fonts..."
-        code -enable-ozone -ozone-platform=wayland'
-fi
+#if [ "$isUsingWayland" == "wayland" ]; then
+#if [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+#    alias code='echo "Launching code with unblurried fonts..."
+#        code -enable-ozone -ozone-platform=wayland'
+#fi
 
 # RANGER
 # When using ranger using the 'r' macro, the parent process will cd to ranger's
