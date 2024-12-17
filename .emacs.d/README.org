@@ -1,4 +1,0 @@
-* Emacs Configuration Handbook
-
-** Select theme
-Command: counsel-load-theme
