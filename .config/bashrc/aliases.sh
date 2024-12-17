@@ -171,4 +171,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+command -v startplasma-wayland > /dev/null && {
+    alias kde="startplasma-wayland"
+}
 
+alias open='xdg-open'
