@@ -41,7 +41,7 @@ source "/etc/os-release"
 
 # Colour output
 # TODO Get a universally coloured Bash prompt
-if [ "$NAME" != "Arch Linux" ]; then
+if [ "$NAME" != "Arch Linux" ] && [ "$NAME" != "ArcoLinux" ]; then
     if [ -n "$force_color_prompt" ]; then
         # We have color support; assume it's compliant with Ecma-48
         # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
