@@ -15,24 +15,48 @@ LOGFILE="$HOME/arch-postinstall.log"
 # Update system
 sudo pacman -Syyu --noconfirm
 
+## Log something to the logfile
+## Syntax - Let's log `Hello world`:
+##      log "Hello world"
 function log() {
     printf "[%s] $1\n" "$(date +"%D %T")" >> "$LOGFILE"
 }
 
+## All essential packages are installed here. This includes:
+## - AUR helper
+## - web browser
+## - terminal
+## - terminal-based text editor
 function install_essentials() {
-    # Install yay, the AUR helper
-    cd "$REPOS_DIR"
-    sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
+    if ! command -v "yay" > /dev/null; then
+        # Install yay, the AUR helper
+        cd "$REPOS_DIR"
+        sudo pacman -S --needed git base-devel
+        git clone https://aur.archlinux.org/yay.git
+        cd yay
+        makepkg -si
+    fi
 
-    sudo pacman -S firefox discord
+    # Web browser
+    sudo pacman -S firefox --noconfirm
 
-    yay -S --noconfirm alacritty neovim youtube-music
+    # Terminal, text editor
+    yay -S --noconfirm alacritty neovim
 }
 
-function vpn() {
+## Install social platforms for chatting and more.
+function install_social_platforms() {
+    sudo pacman -S discord --noconfirm
+}
+
+## Install music and media players
+function install_media() {
+    sudo pacman -S vlc --noconfirm
+    yay -S --noconfirm youtube-music
+}
+
+## Install VPN clients
+function install_vpn() {
     if [ -f "/opt/cisco/secureclient/bin/vpnui" ]; then
         return
     fi
@@ -47,3 +71,19 @@ function vpn() {
         log "Failed to install Cisco VPN"
     fi
 }
+
+## Install system-wide fonts
+function install_fonts() {
+    sudo pacman -S --noconfirm ttf-jetbrains-mono-nerd \
+                               ttf-ubuntu-font-family
+}
+
+## You can opt-out on installing packages by commenting out the below functions
+install_essentials
+#install_vpn
+install_social_platforms    # discord
+install_media               # vlc, youtube-music
+install_fonts
+
+echo "Successfully installed all packages!"
+
