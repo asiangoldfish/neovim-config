@@ -75,7 +75,8 @@ function install_vpn() {
 ## Install system-wide fonts
 function install_fonts() {
     sudo pacman -S --noconfirm ttf-jetbrains-mono-nerd \
-                               ttf-ubuntu-font-family
+                               ttf-ubuntu-font-family \
+                               ttf-fira-code
 }
 
 ## You can opt-out on installing packages by commenting out the below functions
