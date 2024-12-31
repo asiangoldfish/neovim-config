@@ -4,6 +4,7 @@
 # Update log
 # Time format: DD-MM-YYYY
 #
+# - 31.12.2024: Install Spacemacs - an Emacs distribution
 # - 12.11.2024: Install firefox, discord, alacritty, neovim, youtube-music
 #               and Cisco Anyconnect vpn.
 ################################################################################
@@ -76,7 +77,33 @@ function install_vpn() {
 function install_fonts() {
     sudo pacman -S --noconfirm ttf-jetbrains-mono-nerd \
                                ttf-ubuntu-font-family \
-                               ttf-fira-code
+                               ttf-fira-code \
+                               adobe-source-code-pro-fonts
+}
+
+## 31.12.2024: This function installs Spacemacs - a preconfigured Emacs.
+##             Installation instructions from
+##             https://wiki.archlinux.org/title/Spacemacs.
+function install_emacs() {
+    echo "Installing Spacemacs..."
+    sudo pacman -S --noconfirm emacs
+    mv ~/.emacs.d ~/.emacs.d.bak && mv ~/.emacs ~/.emacs.bak
+    
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || {
+        echo "Failed to install Spacemacs"
+        return
+    }
+
+    # Spacemacs uses adobe-source-code-pro-fonts package for its font. This
+    # should already be installed in function install_fonts.
+
+    ( systemctl --user enable emacs && systemctl --user start emacs ) || {
+        echo "Failed to install Spacemacs"
+        return
+    }
+    
+    echo "Spacemacs successfully installed. Please run Emacs to configure it "
+    echo "for the first time."
 }
 
 ## You can opt-out on installing packages by commenting out the below functions
@@ -85,6 +112,7 @@ install_essentials
 install_social_platforms    # discord
 install_media               # vlc, youtube-music
 install_fonts
+install_emacs
 
 echo "Successfully installed all packages!"
 
