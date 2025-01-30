@@ -106,8 +106,13 @@ function install_emacs() {
     echo "for the first time."
 }
 
+function install_programming_languages() {
+    sudo pacman -S --noconfirm ghc stack cabal-install
+}
+
 ## You can opt-out on installing packages by commenting out the below functions
 install_essentials
+install_programming_languages
 #install_vpn
 install_social_platforms    # discord
 install_media               # vlc, youtube-music
