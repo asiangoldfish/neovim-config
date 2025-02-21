@@ -25,6 +25,7 @@ local config = function()
             "glsl",
             "hlsl",
             "lua",
+            "go",
         },
         auto_install = true,
         highlight = {
