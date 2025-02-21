@@ -7,13 +7,13 @@
 // custom settings, run the `zed: Open Default Settings` command
 // from the command palette
 {
-  "vim_mode": true,
+  "vim_mode": false,
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "theme": {
     "mode": "system",
     "light": "Summercamp",
-    "dark": "One Dark"
+    "dark": "One Light"
   },
   "autosave": {
     "after_delay": {
