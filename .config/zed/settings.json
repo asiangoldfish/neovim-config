@@ -13,11 +13,12 @@
   "theme": {
     "mode": "system",
     "light": "Summercamp",
-    "dark": "One Light"
+    "dark": "Ayu Dark"
   },
   "autosave": {
     "after_delay": {
       "milliseconds": 100
     }
-  }
+  },
+  "wrap_guides": [80]
 }
