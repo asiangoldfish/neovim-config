@@ -30,3 +30,8 @@ if [ -d "$HOME/gems" ]; then
     export PATH="$HOME/gems/bin:$PATH"
 fi
 
+if [ -d "$HOME/.guix-profile/lib/locale" ]; then
+    export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale"
+    GUIX_PROFILE="$HOME/.config/guix/current"
+    . "$GUIX_PROFILE/etc/profile"
+fi
