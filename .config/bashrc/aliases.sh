@@ -176,3 +176,13 @@ command -v startplasma-wayland > /dev/null && {
 }
 
 alias open='xdg-open'
+
+# CP with progression bar
+function cpi() {
+    ! command -v 'rsync' > /dev/null && {
+        echo "rsync not found"
+        return
+    }
+
+    rsync -- progress "$0" "$1"
+}
