@@ -184,5 +184,5 @@ function cpi() {
         return
     }
 
-    rsync -- progress "$0" "$1"
+    rsync --progress "$1" "$2"
 }
