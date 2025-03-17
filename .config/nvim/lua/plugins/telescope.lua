@@ -19,7 +19,7 @@ local config = function()
             },
             live_grep = {
                 theme = "dropdown",
-                previewer = false
+                previewer = true
             },
             find_buffers = {
                 theme = "dropdown",
