@@ -39,7 +39,7 @@ function install_essentials() {
     fi
 
     # Web browser
-    sudo pacman -S firefox --noconfirm
+    sudo yay -S firefox --noconfirm
 
     # Terminal, text editor
     yay -S --noconfirm alacritty neovim
