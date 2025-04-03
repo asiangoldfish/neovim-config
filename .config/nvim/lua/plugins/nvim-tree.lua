@@ -4,6 +4,9 @@ return {
     opts = {
         filters = {
             dotfiles = false
+        },
+        update_focused_file = {
+            enable = true,
         }
     }
 }
