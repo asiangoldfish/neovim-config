@@ -186,8 +186,14 @@ function cpi() {
 
     rsync --progress "$1" "$2"
 }
+
 alias get-last-commmit-hash="git rev-parse HEAD"
 function get-diff() {
     git diff $(git rev-parse HEAD)~ $(git rev-parse HEAD)
 }
 
+# For no reason, tmux decides to not load configuration file from
+# XDG_CONFIG_HOME. Instead, it is implemented as a build option as a
+# workaround... This alias bypasses this intended limitation.
+command -v tmux > /dev/null & \
+    alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
