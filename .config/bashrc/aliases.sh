@@ -186,3 +186,8 @@ function cpi() {
 
     rsync --progress "$1" "$2"
 }
+alias get-last-commmit-hash="git rev-parse HEAD"
+function get-diff() {
+    git diff $(git rev-parse HEAD)~ $(git rev-parse HEAD)
+}
+
