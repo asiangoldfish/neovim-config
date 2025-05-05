@@ -197,3 +197,5 @@ function get-diff() {
 # workaround... This alias bypasses this intended limitation.
 command -v tmux > /dev/null & \
     alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
+
+alias grep='grep --color'
