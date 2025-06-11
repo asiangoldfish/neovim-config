@@ -7,11 +7,19 @@
 # - 31.12.2024: Install Spacemacs - an Emacs distribution
 # - 12.11.2024: Install firefox, discord, alacritty, neovim, youtube-music
 #               and Cisco Anyconnect vpn.
+# - 21.02.2025: Add support for configuration file to enable selectively
+#               add or disable features, or set values.
+# - 11.06.2025: Overhaul script. Packages are now listed in arrays.
 ################################################################################
 REPOS_DIR="$HOME/repos"
-mkdir -p "$REPOS_DIR"
+if [ ! -d "$REPOS_DIR" ]; then
+    mkdir -p "$REPOS_DIR"
+fi
 
 LOGFILE="$HOME/arch-postinstall.log"
+# TODO: Take into account that the script is executed in an arbitrary place
+# in the system or the script is a symlink.
+CONFIG_FILE="./arch_config.sh"
 
 # Update system
 sudo pacman -Syyu --noconfirm
@@ -23,12 +31,40 @@ function log() {
     printf "[%s] $1\n" "$(date +"%D %T")" >> "$LOGFILE"
 }
 
-## All essential packages are installed here. This includes:
-## - AUR helper
-## - web browser
-## - terminal
-## - terminal-based text editor
-function install_essentials() {
+## Packages to install
+pkgs=(
+    git
+    base-devel
+
+    # Social media
+    discord
+
+    # Media
+    vlc
+
+    # Haskell
+    ghc
+    stack
+    cabal-install
+
+    # Fonts
+    ttf-jetbrains-mono-nerd
+    ttf-ubuntu-font-family
+    ttf-fira-code
+    adobe-source-code-pro-fonts
+)
+
+## AUR packages
+aur_pkgs=(
+    firefox
+    alacritty
+    neovim
+    youtube-music
+)
+
+## To define custom functions, for example to build and install from source,
+## define the functions and export them with `exported_pkgs`.
+function install_yay() {
     if ! command -v "yay" > /dev/null; then
         # Install yay, the AUR helper
         cd "$REPOS_DIR"
@@ -37,26 +73,9 @@ function install_essentials() {
         cd yay
         makepkg -si
     fi
-
-    # Web browser
-    sudo yay -S firefox --noconfirm
-
-    # Terminal, text editor
-    yay -S --noconfirm alacritty neovim
 }
 
-## Install social platforms for chatting and more.
-function install_social_platforms() {
-    sudo pacman -S discord --noconfirm
-}
-
-## Install music and media players
-function install_media() {
-    sudo pacman -S vlc --noconfirm
-    yay -S --noconfirm youtube-music
-}
-
-## Install VPN clients
+# Install VPN clients
 function install_vpn() {
     if [ -f "/opt/cisco/secureclient/bin/vpnui" ]; then
         return
@@ -73,22 +92,14 @@ function install_vpn() {
     fi
 }
 
-## Install system-wide fonts
-function install_fonts() {
-    sudo pacman -S --noconfirm ttf-jetbrains-mono-nerd \
-                               ttf-ubuntu-font-family \
-                               ttf-fira-code \
-                               adobe-source-code-pro-fonts
-}
-
-## 31.12.2024: This function installs Spacemacs - a preconfigured Emacs.
-##             Installation instructions from
-##             https://wiki.archlinux.org/title/Spacemacs.
+# 31.12.2024: This function installs Spacemacs - a preconfigured Emacs.
+#             Installation instructions from
+#             https://wiki.archlinux.org/title/Spacemacs.
 function install_emacs() {
     echo "Installing Spacemacs..."
     sudo pacman -S --noconfirm emacs-wayland
     mv ~/.emacs.d ~/.emacs.d.bak && mv ~/.emacs ~/.emacs.bak
-    
+
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || {
         echo "Failed to install Spacemacs"
         return
@@ -101,31 +112,24 @@ function install_emacs() {
         echo "Failed to install Spacemacs"
         return
     }
-    
+
     echo "Spacemacs successfully installed. Please run Emacs to configure it "
     echo "for the first time."
 }
 
-function install_haskell() {
-    sudo pacman -S --noconfirm ghc stack cabal-install
-}
+exported_pkgs=(
+    install_yay
+    install_vpn
+    install_emacs
+)
 
-## You can opt-out on installing packages by commenting out the below functions
-install_essentials
-#install_vpn
-install_social_platforms    # discord
-install_media               # vlc, youtube-music
-install_fonts
+sudo pacman -S --noconfirm "${pkgs[@]}"
+yay -S --noconfirm "${pkgs[@]}"
 
-#############
-## Programming languages
-############
-install_emacs
-
-#############
-## Programming languages
-############
-install_haskell
+# Install custom defined packages
+for pkg in "${exported_pkgs[@]}"; do
+    "$pkg" || exit 1
+done
 
 echo "Successfully installed all packages!"
 
