@@ -1,0 +1,3 @@
+[submodule "src/swaywm-dotfiles"]
+	path = src/swaywm-dotfiles
+	url = https://github.com/asiangoldfish/swaywm-dotfiles.git
