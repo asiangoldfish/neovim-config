@@ -18,8 +18,7 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || {
 # TODO create an automated way to execute this command on the first time booting up
 # if this failed.
 ( systemctl --user enable emacs > /dev/null && systemctl --user start emacs ) || {
-    echo "After rebooting the system, please execute the following command:"
-    echo 'systemctl --user enable emacs && systemctl --user start emacs'
+    echo 'systemctl --user enable emacs && systemctl --user start emacs' >> "$LAST_STEPS"
 }
 
 echo "Spacemacs successfully installed. Please run Emacs to configure it "
