@@ -15,6 +15,8 @@ fi
 LOGFILE="$(mktemp /tmp/scope_log.XXXXXX)"
 script_dir="$(dirname "$0")"
 
+LAST_STEPS="$HOME/last_steps.sh"
+
 # Get all packages to install
 source "$script_dir/arch/arch_config.conf"
 
@@ -37,3 +39,4 @@ done
 
 echo "Successfully installed all packages!"
 
+echo "Arch installation last steps completed!" >> "$LAST_STEPS"
