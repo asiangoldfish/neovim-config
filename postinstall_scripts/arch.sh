@@ -18,9 +18,6 @@ script_dir="$(dirname "$0")"
 # Get all packages to install
 source "$script_dir/arch/arch_config.conf"
 
-# Update system
-sudo pacman -Syyu --noconfirm
-
 # Install yay, the AUR helper
 if ! command -v "yay" > /dev/null; then
     cd "$REPOS_DIR"
@@ -28,11 +25,13 @@ if ! command -v "yay" > /dev/null; then
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si
+else
+    echo "Yay already exists. Skipping..."
 fi
 
 yay -S --noconfirm "${PKGS[@]}"
 
-find arch/ -type f -name "*.sh" | while read -r file; do
+find "$script_dir/arch" -type f -name "*.sh" | while read -r file; do
     ( source "$file" )
 done
 
