@@ -98,7 +98,10 @@ su MY_USERNAME
 sudo pacman -S git stow
 git clone https://github.com/asiangoldfish/neovim-config.git "$HOME/dotfiles"
 cd dotfiles
-stow .
+
+# Creat symlinks. Forcefully overwrite existing files.
+stow --adopt *
+git restore .
 ```
 
 What this will do is cloning the repository to *dotfiles*. To reconfigure your user, like changing some dotfiles, you can simply edit files here. The last line, `stow .`, creates a symlink of the repository to your user account. This is the dotfile manager. To manage your dotfiles, use the new command `dotfiles.sh` directly from your terminal.
