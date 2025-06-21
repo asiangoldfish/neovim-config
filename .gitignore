@@ -1,1 +1,9 @@
 backup/
+
+# As .local/ is also included, we are including a whole bunch of unecessary
+# files.
+.local/
+
+# Specifically include whatever is required.
+.local/applications
+
