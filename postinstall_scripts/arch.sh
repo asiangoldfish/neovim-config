@@ -31,12 +31,18 @@ else
     echo "Yay already exists. Skipping..."
 fi
 
-yay -S --noconfirm "${PKGS[@]}"
+yay --needed -S --noconfirm "${PKGS[@]}"
 
 find "$script_dir/arch" -type f -name "*.sh" | while read -r file; do
     ( source "$file" )
 done
 
 echo "Successfully installed all packages!"
+echo "Symlinking dotfiles..."
+
+cd "$script_dir/../packages"
+stow --adopt --dotfiles --target="$HOME" *
+git restore ..
+stow --dotfiles --target="$HOME" *
 
 echo "Arch installation last steps completed!" >> "$LAST_STEPS"
