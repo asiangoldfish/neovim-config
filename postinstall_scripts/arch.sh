@@ -27,6 +27,7 @@ if ! command -v "yay" > /dev/null; then
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si
+    cd "$script_dir"
 else
     echo "Yay already exists. Skipping..."
 fi
