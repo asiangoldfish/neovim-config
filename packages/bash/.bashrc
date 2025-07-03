@@ -14,8 +14,8 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
     XDG_CONFIG_HOME="$HOME/.config"
 fi
 
-if [ -d "$XDG_CONFIG_HOME/bashrc" ]; then
-    for FILE in "$XDG_CONFIG_HOME"/bashrc/*; do
+if [ -d "$XDG_CONFIG_HOME/bash" ]; then
+    for FILE in "$XDG_CONFIG_HOME/bash/*"; do
         source $FILE
     done
 fi
