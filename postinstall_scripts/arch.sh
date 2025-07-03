@@ -41,7 +41,7 @@ echo "Successfully installed all packages!"
 echo "Symlinking dotfiles..."
 
 cd "$script_dir/../packages"
-stow --adopt --target="$HOME" *
+stow --adopt --dotfiles --target="$HOME" *
 git restore ..
 stow --dotfiles --target="$HOME" *
 
