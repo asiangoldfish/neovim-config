@@ -3,7 +3,7 @@
 ##             https://wiki.archlinux.org/title/Spacemacs.
 
 echo "Installing Spacemacs..."
-sudo pacman -S --noconfirm emacs-wayland
+sudo pacman --needed -S --noconfirm emacs-wayland
 mv ~/.emacs.d ~/.emacs.d.bak && mv ~/.emacs ~/.emacs.bak
 
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || {
