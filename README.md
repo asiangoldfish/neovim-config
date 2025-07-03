@@ -6,9 +6,8 @@ to quickly get new systems running.
 
 ## Navigation
 - [Compatibility](#compabilitity)
-- [Configurations](./docs/deploy-configutation.md)
+- [Configurations](deploy-configuration)
 - [Post Installations](./docs/post-installations.md)
-- [Roadmap](
 - [Legal](#legal)
 
 ## Compabilitity

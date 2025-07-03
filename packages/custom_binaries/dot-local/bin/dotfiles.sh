@@ -15,7 +15,7 @@ set -e # Exit immediately if a command fails.
 set -u # Unset variables and parameters fail when used.
 
 # This is where all the user's configurations are expected to be in
-DOT_DIR="$HOME/dotfiles"
+DOT_DIR="$HOME/dotfiles/packages"
 
 function fatal() {
     echo "$1"
@@ -48,9 +48,8 @@ Options:
 function deploy() {
     [ ! -d "$DOT_DIR" ] && fatal "$DOT_DIR does not exist. You should create a dotfiles directory first."
     ! command -v stow > /dev/null && fatal "Cannot find the GNU Stow command 'stow'"
-
     cd "$DOT_DIR"
-    stow .
+    stow --dotfiles --target="$HOME" *
 }
 
 function clean() {
@@ -58,7 +57,7 @@ function clean() {
     ! command -v stow > /dev/null && fatal "Cannot find the GNU Stow command 'stow'"
 
     cd "$DOT_DIR"
-    stow -D .
+    stow -D --dotfiles --target="$HOME" *
 }
 
 # Cleaning symlinks
