@@ -41,6 +41,7 @@ echo "Successfully installed all packages!"
 echo "Symlinking dotfiles..."
 
 cd "$script_dir/../packages"
+stow --adopt --target="$HOME" *
 stow --dotfiles --target="$HOME" *
 
 echo "Arch installation last steps completed!" >> "$LAST_STEPS"
