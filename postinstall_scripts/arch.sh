@@ -22,12 +22,11 @@ source "$script_dir/arch/arch_config.conf"
 
 # Install yay, the AUR helper
 if ! command -v "yay" > /dev/null; then
-    cd "$REPOS_DIR"
+    ( cd "$REPOS_DIR"
     sudo pacman -S --needed git base-devel
     git clone https://aur.archlinux.org/yay.git
     cd yay
-    makepkg -si
-    cd "$script_dir"
+    makepkg -si )
 else
     echo "Yay already exists. Skipping..."
 fi
