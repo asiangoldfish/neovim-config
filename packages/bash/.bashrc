@@ -15,9 +15,9 @@ if [ -z "$XDG_CONFIG_HOME" ]; then
 fi
 
 if [ -d "$XDG_CONFIG_HOME/bash" ]; then
-    for FILE in "$XDG_CONFIG_HOME/bash/*"; do
-        source $FILE
-    done
+    source "$XDG_CONFIG_HOME/bash/aliases.sh"
+    source "$XDG_CONFIG_HOME/bash/environment.sh"
+    source "$XDG_CONFIG_HOME/bash/paths.sh"
 fi
 
 # Bash options
