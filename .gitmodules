@@ -1,3 +1,6 @@
 [submodule "src/swaywm-dotfiles"]
 	path = packages/sway/src/swaywm-dotfiles
 	url = https://github.com/asiangoldfish/swaywm-dotfiles.git
+[submodule "packages/guix-dev-scripts/src/guix-dev-scripts"]
+	path = packages/guix-dev-scripts/src/guix-dev-scripts
+	url = https://github.com/asiangoldfish/guix-dev-scripts.git
