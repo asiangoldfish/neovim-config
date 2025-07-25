@@ -199,5 +199,45 @@ command -v tmux > /dev/null && \
     alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 alias grep='grep --color'
+
 # Require pip to run in virtual environment only.
 alias pip='pip --require-virtualenv'
+
+# Quickly edit a command. Useful to edit scripts in PATH.
+edit-command() {
+    cmd="$1"
+    if [ -z "$cmd" ]; then
+        echo "Usage: edit-command [COMMAND]"
+        return 1
+    fi
+
+    if [ "$cmd" == "-h" ] || [ "$cmd" == "--help" ]; then
+        echo "Usage: edit-command [COMMAND]"
+        echo ""
+        echo "Quickly edit a command in PATH. Useful to edit scripts."
+        echo "NB! This requires the environment variable EDITOR to be set."
+        return 0
+    fi
+
+    if [ -z "$EDITOR" ]; then
+        echo '$EDITOR is not set'
+        return 1
+    fi
+
+    local filepath
+    filepath="$(command -v $1)"
+    if [ -f "$filepath" ]; then
+        exec "$EDITOR" "$filepath"
+    else
+        echo "Cannot find the filepath to the command's source."
+        return 1
+    fi
+}
+
+# Autocomplete function
+_edit_command_completions() {
+    COMPREPLY=( $(compgen -c -- "${COMP_WORDS[1]}") )
+}
+
+# Register the autocompletion for the edit-command function
+complete -F _edit_command_completions edit-command
