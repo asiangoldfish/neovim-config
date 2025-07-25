@@ -199,3 +199,5 @@ command -v tmux > /dev/null && \
     alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 alias grep='grep --color'
+# Require pip to run in virtual environment only.
+alias pip='pip --require-virtualenv'
