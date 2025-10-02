@@ -36,3 +36,8 @@ keymap.set("v", ">", ">gv")
 -- Comments
 vim.api.nvim_set_keymap("n", "<C-k>", "gcc", { noremap = false })
 vim.api.nvim_set_keymap("v", "<C-k>", "gcc", { noremap = false })
+
+-- Terminal
+-- Map <Esc> in terminal mode to go back to Normal mode
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
+
