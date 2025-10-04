@@ -4,15 +4,21 @@
 
 echo "Installing Spacemacs..."
 sudo pacman --needed -S --noconfirm emacs-wayland
-mv ~/.emacs.d ~/.emacs.d.bak && mv ~/.emacs ~/.emacs.bak
+if [ -d "$HOME/.emacs.d" ]; then
+    mv ~/.emacs.d ~/.emacs.d.bak
+fi
+
+if [ -d "$HOME/.emacs" ]; then
+    mv ~/.emacs ~/.emacs.bak
+fi
 
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d || {
     echo "Failed to install Spacemacs"
     return
 }
 
-# Spacemacs uses adobe-source-code-pro-fonts package for its font. This
-# should already be installed in function install_fonts.
+# Spacemacs uses adobe-source-code-pro-fonts package for its font.
+sudo pacman --needed -S --noconfirm adobe-source-code-pro-fonts
 
 # In the live ISO, the below command will fail.
 # TODO create an automated way to execute this command on the first time booting up
