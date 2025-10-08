@@ -227,7 +227,7 @@ edit-command() {
     local filepath
     filepath="$(command -v $1)"
     if [ -f "$filepath" ]; then
-        exec "$EDITOR" "$filepath"
+         "$EDITOR" "$filepath"
     else
         echo "Cannot find the filepath to the command's source."
         return 1

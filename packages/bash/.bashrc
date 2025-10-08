@@ -123,3 +123,20 @@ bind "set completion-ignore-case on"
 if [ -f "/usr/share/bash-completion/completions/git" ]; then
     source /usr/share/bash-completion/completions/git
 fi
+
+# Fuzzy find last commands to check for cd
+cdf() {
+  local cmd
+  cmd=$(history | grep 'cd ' | fzf | sed 's/^[ 0-9]*//')
+  if [ -n "$cmd" ]; then
+    eval "$cmd"
+    # Force a new prompt redraw
+    builtin cd "$(pwd)" || return
+    echo    # print a newline
+    # Repaint prompt
+    bind '"\r": "\n"'
+  fi
+}
+
+bind -x '"\C-f":cdf'
+
