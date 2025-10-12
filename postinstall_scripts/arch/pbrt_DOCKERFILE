@@ -1,0 +1,59 @@
+# --------------------------------------------------
+# 1. Base environment with CUDA toolkit
+# --------------------------------------------------
+FROM nvidia/cuda:12.4.1-devel-archlinux
+
+RUN pacman -Sy --noconfirm base-devel git cmake python tbb openexr imath libpng zlib patchelf fuse2 wget
+
+# --------------------------------------------------
+# 2. Build PBRT-v4 with GPU support
+# --------------------------------------------------
+WORKDIR /opt
+
+RUN git clone --recursive https://github.com/mmp/pbrt-v4.git
+WORKDIR /opt/pbrt-v4
+RUN mkdir build && cd build && \
+    cmake .. \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/opt/pbrt-v4/pbrt.AppDir/usr \
+      -DPBRT_BUILD_GPU_RENDERER=ON && \
+    make -j$(nproc) && make install
+
+# --------------------------------------------------
+# 3. Keep only the 'pbrt' binary
+# --------------------------------------------------
+RUN find pbrt.AppDir/usr/bin -type f ! -name 'pbrt' -delete
+
+# --------------------------------------------------
+# 4. Bundle dependencies
+# --------------------------------------------------
+RUN mkdir -p pbrt.AppDir/usr/lib && \
+    ldd pbrt.AppDir/usr/bin/pbrt | awk '/=> \// {print $3}' | \
+    grep -E "lib(OpenEXR|Imath|tbb|png|z|cuda|nvrtc|cudart)" | \
+    xargs -I '{}' cp -v '{}' pbrt.AppDir/usr/lib/ || true
+
+# --------------------------------------------------
+# 5. Patch RPATH
+# --------------------------------------------------
+RUN patchelf --set-rpath '$ORIGIN/../lib' pbrt.AppDir/usr/bin/pbrt
+
+# --------------------------------------------------
+# 6. Create AppRun (entrypoint)
+# --------------------------------------------------
+RUN printf '#!/bin/sh\nHERE="$(dirname "$(readlink -f "$0")")"\nexec "$HERE/usr/bin/pbrt" "$@"\n' > pbrt.AppDir/AppRun \
+    && chmod +x pbrt.AppDir/AppRun
+
+# --------------------------------------------------
+# 7. Get appimagetool
+# --------------------------------------------------
+RUN wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool && \
+    chmod +x /usr/local/bin/appimagetool
+
+# --------------------------------------------------
+# 8. Build CLI-only AppImage
+# --------------------------------------------------
+WORKDIR /opt/pbrt-v4
+RUN APPIMAGE_EXTRACT_AND_RUN=1 appimagetool --no-appstream pbrt.AppDir PBRT-v4-x86_64-GPU.AppImage
+
+CMD ["true"]
+
