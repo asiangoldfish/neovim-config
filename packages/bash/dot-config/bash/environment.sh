@@ -40,3 +40,10 @@ fi
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init - bash)"
 fi
+
+export NTNU="$HOME/Documents/NTNU"
+
+# Node
+if [ -f '/usr/share/nvm/init-nvm.sh' ]; then
+    . /usr/share/nvm/init-nvm.sh
+fi
