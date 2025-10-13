@@ -20,8 +20,8 @@ OPTION
         --processes-all            view all containers (even if not running)
         ps a					   shorthand for --processes-all
         --stop-processes           stop all running containers
-        --build                    [re]build containers. Changes in
-                                        take effect.
+        --build                    build containers
+        --rebuild                  rebuild containers
         --cold-start               stop containers and rebuild them
         --delete-all               delete all volumes, containers, images
         --delete-volumes           delete all volumes currently not in use
@@ -33,8 +33,15 @@ OPTION
 }
 
 function build() {
-    echo "[Re]build containers..."
+    echo "Build containers..."
     sudo docker compose up -d --build
+}
+
+function rebuild() {
+    echo "Rebuilding containers..."
+    docker compose down
+    docker compose build --no-cache
+    docker compose up -d
 }
 
 function delete_containers() {
@@ -136,6 +143,7 @@ for arg in "$@"; do
         --processes-all ) sudo docker ps -a; exit 0;;
         --stop-processes) sudo docker stop $(sudo docker ps -a -q) ;;
         --build) build; exit 0;;
+        --rebuild) rebuild; exit 0;;
         --cold-start ) cold_start; exit 0;;
         --delete-all ) delete_all; exit 0;;
         --delete-volumes ) delete_volumes; exit 0;;
