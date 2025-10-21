@@ -82,6 +82,9 @@ cat<<'EOF'
       I use Arch BTW
 
 EOF
+echo "---------------------"
+cal
+echo "---------------------"
 fi
 
 # Default x11 terminal styling
@@ -140,3 +143,5 @@ cdf() {
 
 bind -x '"\C-f":cdf'
 
+GUIX_PROFILE="/home/khai/.guix-profile"
+. "$GUIX_PROFILE/etc/profile"
