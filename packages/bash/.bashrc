@@ -144,4 +144,6 @@ cdf() {
 bind -x '"\C-f":cdf'
 
 GUIX_PROFILE="/home/khai/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
+if [ -f "$GUIX_PROFILE" ]; then
+    . "$GUIX_PROFILE/etc/profile"
+fi
