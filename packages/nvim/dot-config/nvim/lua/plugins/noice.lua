@@ -3,6 +3,9 @@ return {
     event = "VeryLazy",
     opts = {
         -- add any options here
+        timeout = 1000,
+        stages = "static",
+        focusable = false,
     },
     dependencies = {
         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
