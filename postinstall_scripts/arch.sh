@@ -26,7 +26,7 @@ PROFILE_DIR="./arch/profiles"
 echo "Launching profile selector..."
 if ! command -v gum > /dev/null; then
     echo "Command gum is not found, but is required. Installing..."
-    sudo pacman -Sy gum --noconfirm || { echo "Failed to install gum"; exit 1; }
+    sudo pacman -Sy gum --noconfirm --needed || { echo "Failed to install gum"; exit 1; }
 fi
 
 if [ ! -d "$PROFILE_DIR" ]; then
