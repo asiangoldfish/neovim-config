@@ -24,11 +24,6 @@ keymap.set("t", "<C-down>", [[<Cmd>wincmd j<CR>]], opts) -- Navigate down
 keymap.set("t", "<C-up>", [[<Cmd>wincmd k<CR>]], opts) -- Navigate up
 keymap.set("t", "<C-right>", [[<Cmd>wincmd l<CR>]], opts) -- Navigate right
 
-keymap.set("t", "<C-left>", ":TmuxNavigateLeft<CR>", opts) -- Navigate left
-keymap.set("t", "<C-down>", ":TmuxNavigateDown<CR>", opts) -- Navigate down
-keymap.set("t", "<C-up>", ":TmuxNavigateUp<CR>", opts) -- Navigate up
-keymap.set("t", "<C-right>", ":TmuxNavigateRight<CR>", opts) -- Navigate right
-
 -- Indentation
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
