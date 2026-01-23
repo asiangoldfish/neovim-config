@@ -138,7 +138,10 @@ cdf() {
 bind -x '"\C-f":cdf'
 
 GUIX_PROFILE="/home/khai/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
+if [ -d "$GUIX_PROFILE" ]; then
+    . "$GUIX_PROFILE/etc/profile"
+fi
+unset GUIX_PROFILE
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/khai/.lmstudio/bin"
