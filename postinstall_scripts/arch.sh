@@ -69,9 +69,6 @@ fi
 # Concatenate base packages with desktop dependent packages
 PKGS+=( "${profile_packages[@]}" )
 
-echo "${PKGS[@]}"
-exit 1
-
 yay --needed -S --needed --noconfirm "${PKGS[@]}"
 
 find "$script_dir/arch" -type f -name "*.sh" | while read -r file; do
